@@ -1,58 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataPulse — Stop asking engineers for numbers.</title>
+<title>DataPulse — Stop asking engineers for numbers</title>
 <meta name="description" content="POST one metric. Get a versioned, queryable KPI and a dashboard view. API-first metrics infrastructure for engineering teams.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- NAV -->
 <nav role="navigation" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
-      <div class="logo" aria-label="DataPulse">DataPulse</div>
+      <div class="logo">DataPulse</div>
       <div class="nav-links">
-        <a href="#how-it-works">How it works</a>
-        <a href="#why-not-bi">Why not BI</a>
-        <a href="#for-who">Who it's for</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#how-it-works" data-i18n="nav.how">How it works</a>
+        <a href="#why-not-bi" data-i18n="nav.why">Why not BI</a>
+        <a href="#for-who" data-i18n="nav.who">Who it's for</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
       </div>
       <div class="nav-right">
         <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle color theme">🌙</button>
-        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page" target="_blank" rel="noopener" class="btn-outline">GitHub</a>
-        <a href="#signup" class="btn">Start free</a>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-trigger" onclick="toggleLangMenu()" id="lang-trigger"
+                  aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">
+            <span id="lang-current">EN</span>
+            <span class="lang-chevron" aria-hidden="true">▾</span>
+          </button>
+          <ul class="lang-menu" role="listbox" id="lang-menu" aria-label="Language options">
+            <li role="option" aria-selected="true"  onclick="setLang('en')" data-lang="en">EN — English</li>
+            <li role="option" aria-selected="false" onclick="setLang('de')" data-lang="de">DE — Deutsch</li>
+            <li role="option" aria-selected="false" onclick="setLang('sr')" data-lang="sr">SR — Srpski</li>
+          </ul>
+        </div>
+        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
+           target="_blank" rel="noopener" class="btn-outline">GitHub</a>
+        <a href="#signup" class="btn" data-i18n="cta.start">Start free</a>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="start" aria-labelledby="hero-heading">
   <div class="container">
     <div class="hero-inner">
-
       <div class="hero-text">
-        <div class="section-label">Metrics infrastructure</div>
-        <h1 id="hero-heading">
-          Stop asking engineers<br>for numbers.
-        </h1>
-        <p class="hero-sub">Make metrics already be there.</p>
-        <p class="hero-desc">
-          POST one metric. Get a versioned, queryable KPI and a dashboard view.
-          API-first — dashboards are consumers, not the product.
-        </p>
+        <div class="section-label" data-i18n="hero.label">Metrics infrastructure</div>
+        <h1 id="hero-heading" data-i18n="hero.h1">Stop asking engineers<br>for numbers</h1>
+        <p class="hero-sub" data-i18n="hero.sub">Make metrics already be there</p>
+        <p class="hero-desc" data-i18n="hero.desc">POST one metric. Get a versioned, queryable KPI and a dashboard view. API-first — dashboards are consumers, not the product.</p>
         <div class="hero-ctas">
-          <a href="#signup" class="btn" aria-label="Start using DataPulse for free">Start free</a>
+          <a href="#signup" class="btn" data-i18n="cta.start">Start free</a>
           <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
-             target="_blank" rel="noopener" class="btn-outline"
-             aria-label="Clone and run DataPulse locally">Clone &amp; run locally</a>
+             target="_blank" rel="noopener" class="btn-outline" data-i18n="cta.clone">Clone &amp; run locally</a>
         </div>
-        <p class="hero-note">No credit card. Local first-run in minutes.</p>
+        <p class="hero-note" data-i18n="hero.note">No credit card. Local first-run in minutes.</p>
       </div>
-
       <div class="hero-graphic" aria-hidden="true">
         <div class="code-block">
           <div class="code-header">
@@ -61,7 +64,7 @@
             <span class="code-dot" style="background:#22c55e"></span>
             <span class="code-filename">ingest.sh</span>
           </div>
-          <pre class="code-body"><code><span class="c-dim">$ </span><span class="c-cmd">curl</span> -X POST /api/metrics \
+<pre class="code-body"><code><span class="c-dim">$ </span><span class="c-cmd">curl</span> -X POST /api/metrics \
   -H <span class="c-str">"Authorization: Bearer sk_live_xxx"</span> \
   -d <span class="c-str">'{
     "metric": "active_users",
@@ -71,50 +74,45 @@
   }'</span></code></pre>
           <div class="code-footer">
             <span class="status-dot"></span>
-            <span>This metric appears on the dashboard in ~2s.</span>
+            <span data-i18n="hero.codefoot">This metric appears on the dashboard in ~2s</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- SHOW ME IT'S REAL -->
 <section class="surface-bg" aria-labelledby="real-heading">
   <div class="container">
-    <div class="section-label">Live demo</div>
-    <h2 id="real-heading" class="section-title">See it happen</h2>
-    <p class="section-sub">No backend. Simulated locally — same flow as production.</p>
-
+    <div class="section-label" data-i18n="real.label">Live demo</div>
+    <h2 id="real-heading" class="section-title" data-i18n="real.title">See it happen</h2>
+    <p class="section-sub" data-i18n="real.sub">No backend. Simulated locally — same flow as production.</p>
     <div class="real-layout">
       <div class="real-left">
-        <div class="pipeline-steps" role="list" aria-label="Ingestion pipeline steps">
+        <div class="pipeline-steps" role="list">
           <div class="pipe-step" id="pipe-validate" role="listitem">
             <span class="pipe-icon" aria-hidden="true">→</span>
-            <span class="pipe-label">validated</span>
+            <span class="pipe-label" data-i18n="demo.validated">validated</span>
           </div>
           <div class="pipe-step" id="pipe-normalize" role="listitem">
             <span class="pipe-icon" aria-hidden="true">→</span>
-            <span class="pipe-label">normalized</span>
+            <span class="pipe-label" data-i18n="demo.normalized">normalized</span>
           </div>
           <div class="pipe-step" id="pipe-store" role="listitem">
             <span class="pipe-icon" aria-hidden="true">→</span>
-            <span class="pipe-label">stored</span>
+            <span class="pipe-label" data-i18n="demo.stored">stored</span>
           </div>
         </div>
-        <button class="btn demo-btn" id="demo-btn" onclick="runDemo()"
-                aria-label="Send a sample metric and watch the pipeline">
-          Send sample metric
+        <button class="btn demo-btn" id="demo-btn" onclick="runDemo()">
+          <span data-i18n="demo.btn">Send sample metric</span>
         </button>
         <div class="demo-status" id="demo-status" aria-live="polite" aria-atomic="true"></div>
       </div>
-
       <div class="real-right">
-        <div class="dash-card" id="demo-card" aria-label="Live dashboard card preview">
+        <div class="dash-card" id="demo-card">
           <div class="dash-card-label">active_users</div>
           <div class="dash-card-value" id="demo-value">—</div>
-          <div class="dash-card-meta" id="demo-meta">waiting for metric…</div>
+          <div class="dash-card-meta" id="demo-meta" data-i18n="demo.waiting">waiting for metric…</div>
           <div class="dash-card-bar">
             <div class="dash-card-bar-fill" id="demo-bar" style="width:0%"></div>
           </div>
@@ -128,20 +126,18 @@
   </div>
 </section>
 
-<!-- DEBUG SNAPSHOT -->
 <section aria-labelledby="debug-heading">
   <div class="container">
-    <div class="section-label">Debug snapshot</div>
-    <h2 id="debug-heading" class="section-title">What the response looks like</h2>
-    <p class="section-sub">Every ingested metric returns a structured response. No surprises.</p>
-
+    <div class="section-label" data-i18n="debug.label">Debug snapshot</div>
+    <h2 id="debug-heading" class="section-title" data-i18n="debug.title">What the response looks like</h2>
+    <p class="section-sub" data-i18n="debug.sub">Every ingested metric returns a structured response. No surprises.</p>
     <div class="debug-panel" role="region" aria-label="Example API response">
       <div class="debug-header">
         <span class="debug-method">POST</span>
         <span class="debug-path">/api/metrics</span>
         <span class="debug-status ok">200 OK</span>
       </div>
-      <pre class="debug-body"><code>{
+<pre class="debug-body"><code>{
   <span class="c-key">"status"</span>:     <span class="c-str">"stored"</span>,
   <span class="c-key">"latency"</span>:    <span class="c-val">1870</span>,       <span class="c-dim">// ms</span>
   <span class="c-key">"version"</span>:    <span class="c-str">"v1"</span>,
@@ -162,363 +158,317 @@
   </div>
 </section>
 
-<!-- WHY NOT BI -->
 <section class="surface-bg" id="why-not-bi" aria-labelledby="why-heading">
   <div class="container">
-    <div class="section-label">Philosophy</div>
-    <h2 id="why-heading" class="section-title">Why DataPulse is not another BI tool</h2>
+    <div class="section-label" data-i18n="why.label">Philosophy</div>
+    <h2 id="why-heading" class="section-title" data-i18n="why.title">Why DataPulse is not another BI tool</h2>
     <div class="essay-wrap">
-      <p class="essay-text">
-        We don't query your databases. We don't connect to your warehouse. We receive
-        metrics — you push them, we store them, versioned, immediately queryable.
-      </p>
-      <p class="essay-text">
-        We don't want you to drag widgets. The dashboard is a read-only consumer of a
-        metric store. If your metric definition changes, you update it in one place and
-        every consumer reflects that — not in 14 places across four dashboards someone
-        built at 11pm.
-      </p>
-      <p class="essay-text">
-        We enforce metric definitions at ingestion time. Schema is validated on POST,
-        not on query. This means bad data is rejected before it pollutes your history —
-        not discovered three months later during a board meeting.
-      </p>
-      <p class="essay-text">
-        Dashboards are consumers — not the product. The product is a versioned, auditable,
-        workspace-scoped metric store with a stable API. The dashboard is one of several
-        possible consumers; alerts and CSV exports are others.
-      </p>
-      <blockquote class="essay-quote">
-        "If the definition of 'active user' changes, it changes in the schema — not in
-        a filter someone dragged onto a canvas."
-      </blockquote>
+      <p class="essay-text" data-i18n="why.p1">We don't query your databases. We don't connect to your warehouse. We receive metrics — you push them, we store them, versioned, immediately queryable.</p>
+      <p class="essay-text" data-i18n="why.p2">We don't want you to drag widgets. The dashboard is a read-only consumer of a metric store. If your metric definition changes, you update it in one place and every consumer reflects that — not in 14 places across four dashboards someone built at 11pm.</p>
+      <p class="essay-text" data-i18n="why.p3">We enforce metric definitions at ingestion time. Schema is validated on POST, not on query. Bad data is rejected before it pollutes your history — not discovered three months later during a board meeting.</p>
+      <p class="essay-text" data-i18n="why.p4">Dashboards are consumers — not the product. The product is a versioned, auditable, workspace-scoped metric store with a stable API. The dashboard is one of several possible consumers; alerts and CSV exports are others.</p>
+      <blockquote class="essay-quote" data-i18n="why.quote">"If the definition of 'active user' changes, it changes in the schema — not in a filter someone dragged onto a canvas."</blockquote>
     </div>
   </div>
 </section>
 
-<!-- ARCHITECTURE -->
 <section id="how-it-works" aria-labelledby="arch-heading">
   <div class="container">
-    <div class="section-label">Architecture</div>
-    <h2 id="arch-heading" class="section-title">How data moves</h2>
-    <p class="section-sub">Linear. No side-channels. No warehouse dependency.</p>
-
+    <div class="section-label" data-i18n="arch.label">Architecture</div>
+    <h2 id="arch-heading" class="section-title" data-i18n="arch.title">How data moves</h2>
+    <p class="section-sub" data-i18n="arch.sub">Linear. No side-channels. No warehouse dependency.</p>
     <div class="arch-layout">
-      <div class="arch-flow" role="img" aria-label="Data flow: Service to Ingestion API to Normalization to Versioned Storage to Consumers">
+      <div class="arch-flow" role="img" aria-label="Data flow diagram">
         <div class="arch-node source-node">
-          <div class="arch-node-title">Your service / script / CSV</div>
-          <div class="arch-node-sub">anything that can POST</div>
+          <div class="arch-node-title" data-i18n="arch.n1">Your service / script / CSV</div>
+          <div class="arch-node-sub" data-i18n="arch.n1s">anything that can POST</div>
         </div>
         <div class="arch-arrow" aria-hidden="true">↓</div>
         <div class="arch-node">
           <div class="arch-node-title">Ingestion API</div>
-          <div class="arch-node-sub">workspace-scoped keys · schema enforcement</div>
+          <div class="arch-node-sub" data-i18n="arch.n2s">workspace-scoped keys · schema enforcement</div>
         </div>
         <div class="arch-arrow" aria-hidden="true">↓</div>
         <div class="arch-node">
           <div class="arch-node-title">Metric Normalization</div>
-          <div class="arch-node-sub">type coercion · unit resolution · dedup</div>
+          <div class="arch-node-sub" data-i18n="arch.n3s">type coercion · unit resolution · dedup</div>
         </div>
         <div class="arch-arrow" aria-hidden="true">↓</div>
         <div class="arch-node accent-node">
           <div class="arch-node-title">Versioned Storage</div>
-          <div class="arch-node-sub">immutable history · v1 → v2 → v3</div>
+          <div class="arch-node-sub" data-i18n="arch.n4s">immutable history · v1 → v2 → v3</div>
         </div>
         <div class="arch-arrow" aria-hidden="true">↓</div>
         <div class="arch-node output-node">
-          <div class="arch-node-title">Dashboard / Alert / CSV export</div>
-          <div class="arch-node-sub">consumers — not the source of truth</div>
+          <div class="arch-node-title" data-i18n="arch.n5">Dashboard / Alert / CSV export</div>
+          <div class="arch-node-sub" data-i18n="arch.n5s">consumers — not the source of truth</div>
         </div>
       </div>
-
       <div class="arch-badges">
         <div class="arch-badge">
           <span class="badge-x">No SQL</span>
-          <span class="badge-desc">Metrics are pushed, not queried from a database.</span>
+          <span class="badge-desc" data-i18n="arch.b1">Metrics are pushed, not queried from a database.</span>
         </div>
         <div class="arch-badge">
           <span class="badge-x">No warehouse</span>
-          <span class="badge-desc">No Snowflake, no BigQuery, no dbt pipeline to maintain.</span>
+          <span class="badge-desc" data-i18n="arch.b2">No Snowflake, no BigQuery, no dbt pipeline to maintain.</span>
         </div>
         <div class="arch-badge">
           <span class="badge-x">No analyst dependency</span>
-          <span class="badge-desc">Engineers define once. Everyone reads without a ticket.</span>
+          <span class="badge-desc" data-i18n="arch.b3">Engineers define once. Everyone reads without a ticket.</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOR WHO -->
 <section class="surface-bg" id="for-who" aria-labelledby="forw-heading">
   <div class="container">
-    <div class="section-label">Fit</div>
-    <h2 id="forw-heading" class="section-title">Is DataPulse right for you?</h2>
-
+    <div class="section-label" data-i18n="fit.label">Fit</div>
+    <h2 id="forw-heading" class="section-title" data-i18n="fit.title">Is DataPulse right for you?</h2>
     <div class="fit-grid">
       <div class="fit-col fit-no" role="region" aria-labelledby="not-for-label">
-        <h3 id="not-for-label" class="fit-heading fit-heading-no">This is NOT for you if…</h3>
+        <h3 id="not-for-label" class="fit-heading fit-heading-no" data-i18n="fit.no.title">This is NOT for you if…</h3>
         <ul class="fit-list">
-          <li>You want drag-and-drop BI canvases</li>
-          <li>You already have a mature data warehouse + dbt pipeline</li>
-          <li>You need pixel-perfect executive reporting</li>
-          <li>Your team has a dedicated data analyst for every squad</li>
+          <li data-i18n="fit.no.1">You want drag-and-drop BI canvases</li>
+          <li data-i18n="fit.no.2">You already have a mature data warehouse + dbt pipeline</li>
+          <li data-i18n="fit.no.3">You need pixel-perfect executive reporting</li>
+          <li data-i18n="fit.no.4">Your team has a dedicated data analyst for every squad</li>
         </ul>
       </div>
       <div class="fit-col fit-yes" role="region" aria-labelledby="yes-for-label">
-        <h3 id="yes-for-label" class="fit-heading fit-heading-yes">This IS for you if…</h3>
+        <h3 id="yes-for-label" class="fit-heading fit-heading-yes" data-i18n="fit.yes.title">This IS for you if…</h3>
         <ul class="fit-list">
-          <li>Engineers keep being asked "what's the number?"</li>
-          <li>Metrics live in code comments and Slack threads</li>
-          <li>You want one source of truth without spinning up a warehouse</li>
-          <li>You'd rather push metrics than pull them from five places</li>
+          <li data-i18n="fit.yes.1">Engineers keep being asked "what's the number?"</li>
+          <li data-i18n="fit.yes.2">Metrics live in code comments and Slack threads</li>
+          <li data-i18n="fit.yes.3">You want one source of truth without spinning up a warehouse</li>
+          <li data-i18n="fit.yes.4">You'd rather push metrics than pull them from five places</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DEFAULT VIEWS -->
 <section aria-labelledby="views-heading">
   <div class="container">
-    <div class="section-label">Default views</div>
-    <h2 id="views-heading" class="section-title">Every metric gets these views by default</h2>
-    <p class="section-sub">No configuration. These exist the moment a metric is first ingested.</p>
-
+    <div class="section-label" data-i18n="views.label">Default views</div>
+    <h2 id="views-heading" class="section-title" data-i18n="views.title">Every metric gets these views by default</h2>
+    <p class="section-sub" data-i18n="views.sub">No configuration. These exist the moment a metric is first ingested.</p>
     <div class="views-list" role="list">
       <div class="view-item" role="listitem">
         <div class="view-num" aria-hidden="true">01</div>
         <div class="view-content">
-          <h3 class="view-title">Current value</h3>
-          <p class="view-desc">The latest ingested value, with source and timestamp. Always reflects the last successful POST.</p>
+          <h3 class="view-title" data-i18n="views.v1.title">Current value</h3>
+          <p class="view-desc" data-i18n="views.v1.desc">The latest ingested value, with source and timestamp. Always reflects the last successful POST.</p>
         </div>
       </div>
       <div class="view-item" role="listitem">
         <div class="view-num" aria-hidden="true">02</div>
         <div class="view-content">
-          <h3 class="view-title">Trend — 7 / 30 / 90 days</h3>
-          <p class="view-desc">Time-series view over configurable windows. Rolling aggregates are maintained at ingestion time — no query needed.</p>
+          <h3 class="view-title" data-i18n="views.v2.title">Trend — 7 / 30 / 90 days</h3>
+          <p class="view-desc" data-i18n="views.v2.desc">Time-series view over configurable windows. Rolling aggregates are maintained at ingestion time — no query needed.</p>
         </div>
       </div>
       <div class="view-item" role="listitem">
         <div class="view-num" aria-hidden="true">03</div>
         <div class="view-content">
-          <h3 class="view-title">Version history</h3>
-          <p class="view-desc">Every schema or definition change is versioned. v1 data and v2 data coexist without collision. Deprecate on your schedule.</p>
+          <h3 class="view-title" data-i18n="views.v3.title">Version history</h3>
+          <p class="view-desc" data-i18n="views.v3.desc">Every schema or definition change is versioned. v1 data and v2 data coexist without collision. Deprecate on your schedule.</p>
         </div>
       </div>
       <div class="view-item" role="listitem">
         <div class="view-num" aria-hidden="true">04</div>
         <div class="view-content">
-          <h3 class="view-title">Threshold breaches</h3>
-          <p class="view-desc">A log of every time a metric crossed a defined threshold — value, direction, and ingestion timestamp recorded.</p>
+          <h3 class="view-title" data-i18n="views.v4.title">Threshold breaches</h3>
+          <p class="view-desc" data-i18n="views.v4.desc">A log of every time a metric crossed a defined threshold — value, direction, and ingestion timestamp recorded.</p>
         </div>
       </div>
       <div class="view-item" role="listitem">
         <div class="view-num" aria-hidden="true">05</div>
         <div class="view-content">
-          <h3 class="view-title">Source provenance</h3>
-          <p class="view-desc">Every data point carries its source identifier and workspace key. You know exactly which service sent which value and when.</p>
+          <h3 class="view-title" data-i18n="views.v5.title">Source provenance</h3>
+          <p class="view-desc" data-i18n="views.v5.desc">Every data point carries its source identifier and workspace key. You know exactly which service sent which value and when.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CREDIBILITY -->
 <section class="surface-bg" aria-labelledby="cred-heading">
   <div class="container">
-    <div class="section-label">Background</div>
-    <h2 id="cred-heading" class="section-title">Where DataPulse came from</h2>
-
+    <div class="section-label" data-i18n="cred.label">Background</div>
+    <h2 id="cred-heading" class="section-title" data-i18n="cred.title">Where DataPulse came from</h2>
     <div class="cred-grid">
       <div class="cred-item">
-        <div class="cred-title">Built as an internal tool first.</div>
-        <p class="cred-desc">DataPulse started as glue code between services that kept duplicating the same metric logic. It became a standalone product when the same pattern appeared in every project.</p>
+        <div class="cred-title" data-i18n="cred.c1.title">Built as an internal tool first</div>
+        <p class="cred-desc" data-i18n="cred.c1.desc">DataPulse started as glue code between services that kept duplicating the same metric logic. It became a standalone product when the same pattern appeared in every project.</p>
       </div>
       <div class="cred-item">
-        <div class="cred-title">Used daily to track ~40 metrics across ~8 services.</div>
-        <p class="cred-desc">Before open-sourcing, it ran in production across multiple backend services tracking both business and infrastructure metrics. Numbers are approximate but real.</p>
+        <div class="cred-title" data-i18n="cred.c2.title">Used daily to track ~40 metrics across ~8 services</div>
+        <p class="cred-desc" data-i18n="cred.c2.desc">Before open-sourcing, it ran in production across multiple backend services tracking both business and infrastructure metrics. Numbers are approximate but real.</p>
       </div>
       <div class="cred-item">
-        <div class="cred-title">Designed to cut 10–15 "can you pull this number" requests per week.</div>
-        <p class="cred-desc">That was the original brief. Engineers shouldn't be interrupt-driven data pipelines for their colleagues.</p>
+        <div class="cred-title" data-i18n="cred.c3.title">Designed to cut 10-15 "can you pull this number" requests per week</div>
+        <p class="cred-desc" data-i18n="cred.c3.desc">That was the original brief. Engineers shouldn't be interrupt-driven data pipelines for their colleagues.</p>
       </div>
     </div>
-
     <div class="cred-links">
-      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
-         target="_blank" rel="noopener" class="cred-link" aria-label="View repository on GitHub">
-        <span class="cred-link-icon" aria-hidden="true">⌥</span> View repository
+      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page" target="_blank" rel="noopener" class="cred-link">
+        <span class="cred-link-icon" aria-hidden="true">⌥</span> <span data-i18n="cred.repo">View repository</span>
       </a>
-      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page/tree/main/docs/decisions"
-         target="_blank" rel="noopener" class="cred-link" aria-label="View architecture decision records">
-        <span class="cred-link-icon" aria-hidden="true">⌥</span> ADR docs
+      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page/tree/main/docs/decisions" target="_blank" rel="noopener" class="cred-link">
+        <span class="cred-link-icon" aria-hidden="true">⌥</span> <span data-i18n="cred.adr">ADR docs</span>
       </a>
-      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page/blob/main/roadmap.md"
-         target="_blank" rel="noopener" class="cred-link" aria-label="View product roadmap">
-        <span class="cred-link-icon" aria-hidden="true">⌥</span> Roadmap
+      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page/blob/main/roadmap.md" target="_blank" rel="noopener" class="cred-link">
+        <span class="cred-link-icon" aria-hidden="true">⌥</span> <span data-i18n="cred.roadmap">Roadmap</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing" aria-labelledby="pricing-heading">
   <div class="container">
-    <div class="section-label">Pricing</div>
-    <h2 id="pricing-heading" class="section-title">Transparent pricing. No surprises.</h2>
-    <p class="section-sub">All plans include schema enforcement, versioned storage, and the full API.</p>
-
+    <div class="section-label" data-i18n="pricing.label">Pricing</div>
+    <h2 id="pricing-heading" class="section-title" data-i18n="pricing.title">Transparent pricing, no surprises</h2>
+    <p class="section-sub" data-i18n="pricing.sub">All plans include schema enforcement, versioned storage, and the full API.</p>
     <div class="pricing-grid">
       <div class="price-card">
-        <div class="price-tier">Free</div>
+        <div class="price-tier" data-i18n="plan.free">Free</div>
         <div class="price-amount">€0<span>/mo</span></div>
-        <div class="price-desc">1 workspace, 5 metrics, 7-day history. Enough to validate the integration.</div>
+        <div class="price-desc" data-i18n="plan.free.desc">1 workspace, 5 metrics, 7-day history. Enough to validate the integration.</div>
         <ul class="price-features">
-          <li><span class="ci" aria-label="included">✓</span><span>1 workspace</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>5 metrics</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>7 days history</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>REST API + workspace-scoped keys</span></li>
-          <li><span class="xi" aria-label="not included">✗</span><span class="muted-text">Threshold alerts</span></li>
+          <li><span class="ci">✓</span><span>1 workspace</span></li>
+          <li><span class="ci">✓</span><span>5 metrics</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.hist7">7 days history</span></li>
+          <li><span class="ci">✓</span><span>REST API + workspace-scoped keys</span></li>
+          <li><span class="xi">✗</span><span class="muted-text" data-i18n="plan.alerts">Threshold alerts</span></li>
         </ul>
-        <a href="#signup" class="btn-outline btn-full">Start free</a>
+        <a href="#signup" class="btn-outline btn-full" data-i18n="cta.start">Start free</a>
       </div>
-
       <div class="price-card featured">
-        <div class="price-badge">Most used</div>
+        <div class="price-badge" data-i18n="plan.badge">Most used</div>
         <div class="price-tier">Starter</div>
         <div class="price-amount">€49<span>/mo</span></div>
-        <div class="price-desc">3 workspaces, 50 metrics, 90-day history. For teams with real production traffic.</div>
+        <div class="price-desc" data-i18n="plan.starter.desc">3 workspaces, 50 metrics, 90-day history. For teams with real production traffic.</div>
         <ul class="price-features">
-          <li><span class="ci" aria-label="included">✓</span><span>3 workspaces</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>50 metrics</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>90 days history</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>Threshold alerts + webhook</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>Email digest</span></li>
+          <li><span class="ci">✓</span><span>3 workspaces</span></li>
+          <li><span class="ci">✓</span><span>50 metrics</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.hist90">90 days history</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.webhook">Threshold alerts + webhook</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.digest">Email digest</span></li>
         </ul>
-        <a href="#signup" class="btn btn-full">Start free</a>
+        <a href="#signup" class="btn btn-full" data-i18n="cta.start">Start free</a>
       </div>
-
       <div class="price-card">
         <div class="price-tier">Growth</div>
         <div class="price-amount">€149<span>/mo</span></div>
-        <div class="price-desc">Unlimited workspaces and metrics, 2-year history. Slack integration, DPA, priority support.</div>
+        <div class="price-desc" data-i18n="plan.growth.desc">Unlimited workspaces and metrics, 2-year history. Slack, DPA, priority support.</div>
         <ul class="price-features">
-          <li><span class="ci" aria-label="included">✓</span><span>Unlimited workspaces</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>Unlimited metrics</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>2 years history</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>Slack integration</span></li>
-          <li><span class="ci" aria-label="included">✓</span><span>DPA + priority support</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.unl.ws">Unlimited workspaces</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.unl.m">Unlimited metrics</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.hist2y">2 years history</span></li>
+          <li><span class="ci">✓</span><span data-i18n="plan.slack">Slack integration</span></li>
+          <li><span class="ci">✓</span><span>DPA + priority support</span></li>
         </ul>
-        <a href="mailto:hello@datapulse.io" class="btn-outline btn-full">Contact us</a>
+        <a href="mailto:hello@datapulse.io" class="btn-outline btn-full" data-i18n="cta.contact">Contact us</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="surface-bg" id="faq" aria-labelledby="faq-heading">
   <div class="container">
     <div class="section-label">FAQ</div>
-    <h2 id="faq-heading" class="section-title">Frequently asked questions</h2>
-
+    <h2 id="faq-heading" class="section-title" data-i18n="faq.title">Frequently asked questions</h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-1">
-          <span>Do I need a data warehouse?</span>
+          <span data-i18n="faq.q1">Do I need a data warehouse?</span>
           <span class="faq-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-1" hidden>No. DataPulse receives metrics via POST — it does not connect to your database or warehouse. There is nothing to provision on your data infrastructure side.</div>
+        <div class="faq-a" id="faq-a-1" hidden data-i18n="faq.a1">No. DataPulse receives metrics via POST — it does not connect to your database or warehouse. There is nothing to provision on your data infrastructure side.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-2">
-          <span>How long does integration take?</span>
+          <span data-i18n="faq.q2">How long does integration take?</span>
           <span class="faq-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-2" hidden>Under 5 minutes for the first metric. One POST request, one API key, one endpoint. The key is workspace-scoped, so you can rotate it without touching other services.</div>
+        <div class="faq-a" id="faq-a-2" hidden data-i18n="faq.a2">Under 5 minutes for the first metric. One POST request, one API key, one endpoint. The key is workspace-scoped, so you can rotate it without touching other services.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-3">
-          <span>What happens when a metric's definition changes?</span>
+          <span data-i18n="faq.q3">What happens when a metric's definition changes?</span>
           <span class="faq-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-3" hidden>You update the schema and DataPulse increments the version (v1 → v2). Historical data under v1 is preserved and queryable. The two versions do not collide. You can deprecate v1 on a schedule.</div>
+        <div class="faq-a" id="faq-a-3" hidden data-i18n="faq.a3">You update the schema and DataPulse increments the version (v1 to v2). Historical data under v1 is preserved and queryable. The two versions do not collide. You can deprecate v1 on a schedule.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-4">
-          <span>Where is data stored?</span>
+          <span data-i18n="faq.q4">Where is data stored?</span>
           <span class="faq-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-4" hidden>EU servers only. GDPR-compliant by design. A Data Processing Agreement is available for all paid plans. No data is processed outside the EU.</div>
+        <div class="faq-a" id="faq-a-4" hidden data-i18n="faq.a4">EU servers only. GDPR-compliant by design. A Data Processing Agreement is available for all paid plans. No data is processed outside the EU.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-5">
-          <span>What if I exceed my plan's metric limit?</span>
+          <span data-i18n="faq.q5">What if I exceed my plan's metric limit?</span>
           <span class="faq-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-5" hidden>Data is never dropped. You receive a notification and 14 days to upgrade. No automatic charges, no silent data loss.</div>
+        <div class="faq-a" id="faq-a-5" hidden data-i18n="faq.a5">Data is never dropped. You receive a notification and 14 days to upgrade. No automatic charges, no silent data loss.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-6">
-          <span>Can I run it locally?</span>
+          <span data-i18n="faq.q6">Can I run it locally?</span>
           <span class="faq-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-6" hidden>Yes. Clone the repository and follow the README. The local stack runs without external dependencies. Useful for development and for understanding the ingestion pipeline before committing to the hosted version.</div>
+        <div class="faq-a" id="faq-a-6" hidden data-i18n="faq.a6">Yes. Clone the repository and follow the README. The local stack runs without external dependencies. Useful for development and for understanding the ingestion pipeline before committing to the hosted version.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA / SIGNUP -->
 <section class="cta-section" id="signup" aria-labelledby="cta-heading">
   <div class="container">
     <div class="cta-banner">
       <div class="cta-text">
-        <h2 id="cta-heading">One endpoint. All your metrics.</h2>
-        <p>Start with the free plan. No credit card. Local first-run in minutes.</p>
+        <h2 id="cta-heading" data-i18n="cta.h2">One endpoint, all your metrics</h2>
+        <p data-i18n="cta.p">Start with the free plan. No credit card. Local first-run in minutes.</p>
         <form id="signup-form" onsubmit="handleSignup(event)" novalidate>
           <div class="cta-form">
             <label for="cta-email" class="sr-only">Your email address</label>
             <input type="email" id="cta-email" name="email"
                    placeholder="you@company.com"
-                   autocomplete="email"
-                   required aria-required="true"
+                   autocomplete="email" required aria-required="true"
                    aria-describedby="cta-form-status" />
-            <button type="submit" class="btn" aria-label="Start free with DataPulse">Start free</button>
+            <button type="submit" class="btn" data-i18n="cta.start">Start free</button>
           </div>
           <div class="form-status" id="cta-form-status" role="status" aria-live="polite"></div>
         </form>
       </div>
       <div class="cta-links">
         <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
-           target="_blank" rel="noopener" class="btn-outline"
-           aria-label="Clone and run DataPulse locally from GitHub">
-          Clone &amp; run locally
-        </a>
+           target="_blank" rel="noopener" class="btn-outline" data-i18n="cta.clone">Clone &amp; run locally</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer role="contentinfo">
   <div class="container">
     <div class="footer-inner">
       <div class="footer-logo">DataPulse</div>
       <nav class="footer-links" aria-label="Footer navigation">
-        <a href="#how-it-works">How it works</a>
-        <a href="#why-not-bi">Philosophy</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#how-it-works" data-i18n="nav.how">How it works</a>
+        <a href="#why-not-bi" data-i18n="nav.why">Philosophy</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
-           target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page" target="_blank" rel="noopener">GitHub</a>
         <a href="mailto:hello@datapulse.io">hello@datapulse.io</a>
       </nav>
       <div class="footer-copy">
         <span>© 2026 DataPulse</span>
         <span class="footer-sep" aria-hidden="true">·</span>
-        <span>EU servers</span>
+        <span data-i18n="footer.eu">EU servers</span>
         <span class="footer-sep" aria-hidden="true">·</span>
         <span>GDPR compliant</span>
       </div>
