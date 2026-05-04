@@ -168,7 +168,6 @@ async function handleSignup(e) {
   statusEl.className   = 'form-status';
 
   try {
-    // Replace YOUR_FORM_ID with your Formspree form ID
     var res = await fetch('https://formspree.io/f/xykoenzg', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
