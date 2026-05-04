@@ -1,124 +1,184 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="sr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DataPulse — Jedna platforma. Svi tvoji brojevi.</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0a;--surface:#111111;--border:#1e1e1e;--accent:#6366f1;--green:#22c55e;--text:#ffffff;--muted:#888888}
-body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.6}
+:root{
+--accent1:#6366f1;--accent2:#8b5cf6;--accent3:#06b6d4;
+--gradient:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
+--gradient-text:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
+}
+[data-theme="dark"]{
+--bg:#0a0a0a;--surface:#111111;--surface2:#161616;--border:#1e1e1e;
+--text:#ffffff;--muted:#888888;--card:#111111;
+}
+[data-theme="light"]{
+--bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--border:#e2e8f0;
+--text:#0f172a;--muted:#64748b;--card:#ffffff;
+}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.6;transition:background 0.3s,color 0.3s}
 a{color:inherit;text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
-nav{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(10px);z-index:100}
+
+/* NAV */
+nav{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:var(--bg);backdrop-filter:blur(10px);z-index:100;transition:background 0.3s}
+[data-theme="dark"] nav{background:rgba(10,10,10,0.95)}
+[data-theme="light"] nav{background:rgba(248,250,252,0.95)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:20px;font-weight:700;color:var(--accent)}
-.nav-links{display:flex;gap:32px;color:var(--muted);font-size:14px}
+.logo{font-size:20px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:32px;font-size:14px;color:var(--muted)}
 .nav-links a:hover{color:var(--text)}
-.nav-right{display:flex;align-items:center;gap:16px}
-.lang-toggle{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px}
-.lang-toggle:hover{border-color:var(--accent);color:var(--text)}
-.btn{background:var(--accent);color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
-.btn:hover{opacity:0.9}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px}
-.btn-outline:hover{border-color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.icon-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.icon-btn:hover{border-color:var(--accent1)}
+.lang-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.2s}
+.lang-btn:hover{border-color:var(--accent1);color:var(--text)}
+.btn{background:var(--gradient);color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:700;transition:opacity 0.2s;position:relative}
+.btn:hover{opacity:0.88}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s}
+.btn-outline:hover{border-color:var(--accent1)}
+
+/* HERO */
 .hero{padding:100px 0 80px;text-align:center}
+.section-label{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero h1{font-size:clamp(36px,6vw,68px);font-weight:800;line-height:1.1;margin-bottom:24px;letter-spacing:-2px}
-.hero h1 span{color:var(--accent)}
+.grad-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero>div>p{font-size:20px;color:var(--muted);max-width:580px;margin:0 auto 40px}
-.hero-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-.hero-form input{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:12px 20px;border-radius:8px;font-size:15px;width:300px}
-.hero-form input:focus{outline:none;border-color:var(--accent)}
-.trust-badges{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hero-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.hero-form input[type="email"]{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:12px 20px;border-radius:8px;font-size:15px;width:300px;transition:border 0.2s}
+.hero-form input[type="email"]:focus{outline:none;border-color:var(--accent1)}
+.form-status{font-size:14px;margin-bottom:24px;min-height:20px;color:var(--muted)}
+.form-status.success{color:#22c55e}
+.form-status.error{color:#ef4444}
+.trust-badges{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:60px}
 .badge{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
-.badge .check{color:var(--green)}
-.dashboard-preview{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:800px;margin:60px auto 0;text-align:left}
+.badge .g{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700}
+
+/* MOCK DASHBOARD */
+.dashboard-preview{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:800px;margin:0 auto;text-align:left;box-shadow:0 20px 60px rgba(99,102,241,0.1)}
 .db-header{display:flex;align-items:center;gap:8px;margin-bottom:20px}
 .db-dot{width:12px;height:12px;border-radius:50%}
 .db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
 .db-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
-.db-label{font-size:12px;color:var(--muted);margin-bottom:8px}
-.db-value{font-size:28px;font-weight:700}
-.db-delta{font-size:12px;color:var(--green);margin-top:4px}
-.db-bar{height:6px;background:var(--border);border-radius:3px;margin-top:12px}
+.db-label{font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:1px}
+.db-value{font-size:26px;font-weight:800}
+.db-delta-green{font-size:12px;color:#22c55e;margin-top:4px}
+.db-delta-yellow{font-size:12px;color:#f59e0b;margin-top:4px}
+.db-bar{height:5px;background:var(--border);border-radius:3px;margin-top:12px}
 .db-bar-fill{height:100%;border-radius:3px}
+
+/* SECTIONS */
 section{padding:80px 0}
-.section-label{font-size:13px;color:var(--accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
-.section-title{font-size:clamp(28px,4vw,44px);font-weight:700;margin-bottom:16px;letter-spacing:-1px}
+.section-title{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:16px;letter-spacing:-1px}
 .section-sub{color:var(--muted);font-size:18px;max-width:560px}
-.surface{background:var(--surface)}
+.surface-bg{background:var(--surface2)}
+
+/* PROBLEM */
 .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
-.problem-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px}
-.problem-card .icon{font-size:32px;margin-bottom:16px}
-.problem-card h3{font-size:18px;font-weight:600;margin-bottom:10px}
+.problem-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color 0.2s,transform 0.2s}
+.problem-card:hover{border-color:var(--accent1);transform:translateY(-2px)}
+.p-icon{font-size:36px;margin-bottom:16px}
+.problem-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
 .problem-card p{color:var(--muted);font-size:15px}
+
+/* STEPS */
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;margin-top:48px}
 .step{position:relative;padding-left:60px}
-.step-num{position:absolute;left:0;top:0;width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
-.step h3{font-size:18px;font-weight:600;margin-bottom:10px}
+.step-num{position:absolute;left:0;top:0;width:42px;height:42px;background:var(--gradient);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff}
+.step h3{font-size:18px;font-weight:700;margin-bottom:10px}
 .step p{color:var(--muted);font-size:15px}
+
+/* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:48px}
-.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px}
-.feature-card .icon{font-size:28px;margin-bottom:16px}
-.feature-card h3{font-size:17px;font-weight:600;margin-bottom:8px}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color 0.2s,transform 0.2s}
+.feature-card:hover{border-color:var(--accent2);transform:translateY(-2px)}
+.f-icon{font-size:32px;margin-bottom:16px}
+.feature-card h3{font-size:17px;font-weight:700;margin-bottom:8px}
 .feature-card p{color:var(--muted);font-size:14px}
-.table-wrap{overflow-x:auto;margin-top:48px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin-top:48px;border-radius:16px;border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse;font-size:15px}
-th{padding:16px;text-align:left;color:var(--muted);font-weight:500;border-bottom:1px solid var(--border);font-size:13px}
-th:first-child{color:var(--text)}
-td{padding:16px;border-bottom:1px solid var(--border)}
+th{padding:16px 20px;text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:13px;background:var(--surface)}
+th.accent-col{background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.15));color:var(--accent1)}
+td{padding:14px 20px;border-bottom:1px solid var(--border)}
 td:first-child{color:var(--muted);font-size:14px}
-.check-icon{color:var(--green)}
-.cross-icon{color:#ef4444}
-.partial-icon{color:#f59e0b}
-tr.hl td{background:rgba(99,102,241,0.08)}
-tr.hl td:first-child{color:var(--accent);font-weight:600}
+tr:last-child td{border-bottom:none}
+.ci{color:#22c55e;font-weight:700}
+.xi{color:#ef4444}
+.pi{color:#f59e0b}
+tr.hl{background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(6,182,212,0.06))}
+tr.hl td:first-child{font-weight:600;color:var(--text)}
+
+/* PRICING */
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
-.price-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative}
-.price-card.featured{border-color:var(--accent);background:rgba(99,102,241,0.05)}
-.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:600}
-.price-tier{font-size:14px;color:var(--muted);margin-bottom:8px}
-.price-amount{font-size:48px;font-weight:800;margin-bottom:4px}
-.price-amount span{font-size:18px;font-weight:400;color:var(--muted)}
-.price-desc{color:var(--muted);font-size:14px;margin-bottom:24px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;position:relative;transition:transform 0.2s}
+.price-card:hover{transform:translateY(-3px)}
+.price-card.featured{border-color:transparent;background:var(--card);position:relative}
+.price-card.featured::before{content:'';position:absolute;inset:-1px;border-radius:21px;background:var(--gradient);z-index:-1}
+.price-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gradient);color:#fff;padding:4px 18px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}
+.price-tier{font-size:14px;color:var(--muted);margin-bottom:8px;font-weight:600}
+.price-amount{font-size:52px;font-weight:900;margin-bottom:4px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.price-amount span{font-size:18px;font-weight:400;-webkit-text-fill-color:var(--muted);color:var(--muted)}
+.price-desc{color:var(--muted);font-size:14px;margin-bottom:28px}
 .price-features{list-style:none;margin-bottom:32px}
-.price-features li{padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:center;gap:10px}
+.price-features li{padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:center;gap:10px}
 .price-features li:last-child{border:none}
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:48px}
-.testimonial{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px}
-.testimonial p{font-size:16px;line-height:1.7;margin-bottom:20px;color:#ccc}
-.testimonial-author{display:flex;align-items:center;gap:12px}
-.avatar{width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
-.author-name{font-weight:600;font-size:14px}
-.author-role{color:var(--muted);font-size:13px}
+
+/* TESTIMONIALS */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:48px}
+.testimonial{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color 0.2s}
+.testimonial:hover{border-color:var(--accent2)}
+.quote{font-size:32px;line-height:1;margin-bottom:12px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.testimonial p{font-size:15px;line-height:1.7;margin-bottom:20px;color:var(--muted)}
+.t-author{display:flex;align-items:center;gap:12px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff}
+.t-name{font-weight:700;font-size:14px}
+.t-role{color:var(--muted);font-size:13px}
+
+/* FAQ */
 .faq-list{margin-top:48px;max-width:720px}
 .faq-item{border-bottom:1px solid var(--border);padding:20px 0;cursor:pointer}
-.faq-question{display:flex;justify-content:space-between;align-items:center;font-size:17px;font-weight:500}
-.faq-arrow{color:var(--muted);transition:transform 0.2s;font-size:20px}
-.faq-answer{color:var(--muted);font-size:15px;margin-top:12px;display:none;line-height:1.7}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:17px;font-weight:600;gap:16px}
+.faq-arrow{color:var(--muted);transition:transform 0.25s;font-size:22px;flex-shrink:0}
+.faq-a{color:var(--muted);font-size:15px;margin-top:12px;display:none;line-height:1.7}
 .faq-item.open .faq-arrow{transform:rotate(45deg)}
-.faq-item.open .faq-answer{display:block}
-.cta-banner{background:var(--accent);border-radius:20px;padding:64px;text-align:center;margin:80px 0}
-.cta-banner h2{font-size:clamp(24px,4vw,40px);font-weight:700;margin-bottom:16px}
-.cta-banner p{font-size:18px;margin-bottom:32px;opacity:0.85}
-.btn-white{background:#fff;color:var(--accent);border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:700}
+.faq-item.open .faq-a{display:block}
+
+/* CTA */
+.cta-wrap{margin:80px 0}
+.cta-banner{background:var(--gradient);border-radius:24px;padding:72px 40px;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 60%);pointer-events:none}
+.cta-banner h2{font-size:clamp(24px,4vw,42px);font-weight:800;margin-bottom:16px;color:#fff}
+.cta-banner p{font-size:18px;margin-bottom:36px;color:rgba(255,255,255,0.85)}
+.btn-white{background:#fff;color:var(--accent1);border:none;padding:14px 36px;border-radius:10px;cursor:pointer;font-size:16px;font-weight:800;transition:transform 0.2s,box-shadow 0.2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+
+/* FOOTER */
 footer{border-top:1px solid var(--border);padding:40px 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-logo{font-size:18px;font-weight:700;color:var(--accent)}
+.footer-logo{font-size:18px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .footer-links{display:flex;gap:24px;color:var(--muted);font-size:14px}
+.footer-links a:hover{color:var(--text)}
 .footer-copy{color:var(--muted);font-size:13px}
-@media(max-width:600px){
+
+/* RESPONSIVE */
+@media(max-width:768px){
 .nav-links{display:none}
-.hero-form{flex-direction:column;align-items:center}
-.hero-form input{width:100%}
 .db-grid{grid-template-columns:1fr}
-.cta-banner{padding:40px 24px}
+.hero-form{flex-direction:column;align-items:center}
+.hero-form input[type="email"]{width:100%;max-width:340px}
+.cta-banner{padding:48px 24px}
 .footer-inner{flex-direction:column;text-align:center}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
 <div class="container">
 <div class="nav-inner">
@@ -130,27 +190,38 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 <a href="#faq">FAQ</a>
 </div>
 <div class="nav-right">
-<button class="lang-toggle" onclick="toggleLang()">EN</button>
+<button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
+<button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
 <button class="btn" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
 </div>
 </div>
 </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
 <div class="container">
 <div class="section-label" data-sr="Metrika platforma za EU startape" data-en="Metrics platform for EU startups">Metrika platforma za EU startape</div>
-<h1 data-sr="Jedna platforma.<br><span>Svi tvoji brojevi.</span>" data-en="One platform.<br><span>All your numbers.</span>">Jedna platforma.<br><span>Svi tvoji brojevi.</span></h1>
+<h1>
+<span data-sr="Jedna platforma." data-en="One platform.">Jedna platforma.</span><br>
+<span class="grad-text" data-sr="Svi tvoji brojevi." data-en="All your numbers.">Svi tvoji brojevi.</span>
+</h1>
 <p data-sr="DataPulse prima metrike iz svih tvojih izvora, normalizuje ih i prikazuje na jednom mestu — u realnom vremenu, bez SQL-a, bez čekanja." data-en="DataPulse ingests metrics from all your sources, normalizes them, and displays everything in one place — real-time, no SQL, no waiting.">DataPulse prima metrike iz svih tvojih izvora, normalizuje ih i prikazuje na jednom mestu — u realnom vremenu, bez SQL-a, bez čekanja.</p>
+
+<form id="signup-form" onsubmit="handleSignup(event)">
 <div class="hero-form">
-<input type="email" id="hero-email" placeholder="tvoj@email.com" />
-<button class="btn" style="padding:12px 28px;font-size:15px" onclick="handleSignup()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
+<input type="email" id="hero-email" name="email" placeholder="tvoj@email.com" required />
+<button type="submit" class="btn" style="padding:12px 28px;font-size:15px" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
 </div>
+</form>
+<div class="form-status" id="form-status"></div>
+
 <div class="trust-badges">
-<div class="badge"><span class="check">✓</span><span data-sr="Bez kreditne kartice" data-en="No credit card required">Bez kreditne kartice</span></div>
-<div class="badge"><span class="check">✓</span><span>GDPR compliant</span></div>
-<div class="badge"><span class="check">✓</span><span data-sr="EU serveri" data-en="EU servers">EU serveri</span></div>
+<div class="badge"><span class="g">✓</span><span data-sr="Bez kreditne kartice" data-en="No credit card required">Bez kreditne kartice</span></div>
+<div class="badge"><span class="g">✓</span><span>GDPR compliant</span></div>
+<div class="badge"><span class="g">✓</span><span data-sr="EU serveri" data-en="EU servers">EU serveri</span></div>
 </div>
+
 <div class="dashboard-preview">
 <div class="db-header">
 <div class="db-dot" style="background:#ef4444"></div>
@@ -161,20 +232,20 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 <div class="db-grid">
 <div class="db-card">
 <div class="db-label">ACTIVE USERS</div>
-<div class="db-value">3,842</div>
-<div class="db-delta">↑ +12% vs last week</div>
-<div class="db-bar"><div class="db-bar-fill" style="width:72%;background:var(--accent)"></div></div>
+<div class="db-value" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3,842</div>
+<div class="db-delta-green">↑ +12% vs last week</div>
+<div class="db-bar"><div class="db-bar-fill" style="width:72%;background:linear-gradient(90deg,#6366f1,#8b5cf6)"></div></div>
 </div>
 <div class="db-card">
 <div class="db-label">MRR</div>
-<div class="db-value">€14,200</div>
-<div class="db-delta">↑ +8% vs last month</div>
-<div class="db-bar"><div class="db-bar-fill" style="width:58%;background:var(--green)"></div></div>
+<div class="db-value" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">€14,200</div>
+<div class="db-delta-green">↑ +8% vs last month</div>
+<div class="db-bar"><div class="db-bar-fill" style="width:58%;background:linear-gradient(90deg,#8b5cf6,#06b6d4)"></div></div>
 </div>
 <div class="db-card">
 <div class="db-label">CHURN RATE</div>
-<div class="db-value">2.1%</div>
-<div class="db-delta" style="color:#f59e0b">→ stable</div>
+<div class="db-value" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2.1%</div>
+<div class="db-delta-yellow">→ stable</div>
 <div class="db-bar"><div class="db-bar-fill" style="width:21%;background:#f59e0b"></div></div>
 </div>
 </div>
@@ -183,24 +254,25 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 </div>
 </section>
 
-<section class="surface" id="problem">
+<!-- PROBLEM -->
+<section class="surface-bg" id="problem">
 <div class="container">
 <div class="section-label" data-sr="Problem" data-en="The problem">Problem</div>
 <div class="section-title" data-sr="Prepoznaješ li ovo?" data-en="Does this sound familiar?">Prepoznaješ li ovo?</div>
 <div class="section-sub" data-sr="Svaka kompanija koja raste dolazi do istog zida." data-en="Every growing company hits the same wall.">Svaka kompanija koja raste dolazi do istog zida.</div>
 <div class="problem-grid">
 <div class="problem-card">
-<div class="icon">🗂️</div>
+<div class="p-icon">🗂️</div>
 <h3 data-sr="Brojevi svuda, istina nigde" data-en="Numbers everywhere, truth nowhere">Brojevi svuda, istina nigde</h3>
 <p data-sr="Marketing ima jedan broj u Mixpanelu. Prodaja drugi u Salesforceu. IT treći u bazi. Svaki sastanak počinje raspravom o tome koji je tačan." data-en="Marketing has one number in Mixpanel. Sales has another in Salesforce. IT has a third in the database. Every meeting starts with a debate about which one is correct.">Marketing ima jedan broj u Mixpanelu. Prodaja drugi u Salesforceu. IT treći u bazi. Svaki sastanak počinje raspravom o tome koji je tačan.</p>
 </div>
 <div class="problem-card">
-<div class="icon">⏳</div>
+<div class="p-icon">⏳</div>
 <h3 data-sr="Izveštaj koji stigne prekasno" data-en="Reports that arrive too late">Izveštaj koji stigne prekasno</h3>
 <p data-sr="Do trenutka kada data inženjer pripremi izveštaj, odluka je već doneta ili propuštena. Stari podaci ne sprečavaju loše odluke." data-en="By the time a data engineer prepares the report, the decision has already been made or missed. Stale data does not prevent bad decisions.">Do trenutka kada data inženjer pripremi izveštaj, odluka je već doneta ili propuštena. Stari podaci ne sprečavaju loše odluke.</p>
 </div>
 <div class="problem-card">
-<div class="icon">💸</div>
+<div class="p-icon">💸</div>
 <h3 data-sr="Looker je preskup, Excel nije dovoljan" data-en="Looker is too expensive, Excel is not enough">Looker je preskup, Excel nije dovoljan</h3>
 <p data-sr="Enterprise BI platforme koštaju $50,000+ godišnje i zahtevaju data warehouse koji još nemaš. Google Sheets se sruši čim imaš 3 izvora podataka." data-en="Enterprise BI platforms cost $50,000+ per year and require a data warehouse you do not have yet. Google Sheets breaks the moment you have 3 data sources.">Enterprise BI platforme koštaju $50,000+ godišnje i zahtevaju data warehouse koji još nemaš. Google Sheets se sruši čim imaš 3 izvora podataka.</p>
 </div>
@@ -208,6 +280,7 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 </div>
 </section>
 
+<!-- HOW IT WORKS -->
 <section id="kako-radi">
 <div class="container">
 <div class="section-label" data-sr="Kako radi" data-en="How it works">Kako radi</div>
@@ -232,35 +305,21 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 </div>
 </section>
 
-<section class="surface" id="funkcije">
+<!-- FEATURES -->
+<section class="surface-bg" id="funkcije">
 <div class="container">
 <div class="section-label" data-sr="Funkcije" data-en="Features">Funkcije</div>
 <div class="section-title" data-sr="Sve što tvoj tim treba" data-en="Everything your team needs">Sve što tvoj tim treba</div>
 <div class="features-grid">
-<div class="feature-card">
-<div class="icon">⚡</div>
-<h3>Real-time ingestion API</h3>
-<p data-sr="REST API prima metrike u realnom vremenu iz bilo kog izvora. Jedan endpoint, konzistentan schema, verzionisan od prvog dana." data-en="REST API accepts metrics in real time from any source. One endpoint, consistent schema, versioned from day one.">REST API prima metrike u realnom vremenu iz bilo kog izvora. Jedan endpoint, konzistentan schema, verzionisan od prvog dana.</p>
-</div>
-<div class="feature-card">
-<div class="icon">🔔</div>
-<h3 data-sr="Pametni alarmi" data-en="Smart alerts">Pametni alarmi</h3>
-<p data-sr="Postavi threshold za bilo koju metriku. DataPulse te obaveštava pre nego što broj pređe granicu — ne posle." data-en="Set a threshold for any metric. DataPulse notifies you before a number crosses the line — not after.">Postavi threshold za bilo koju metriku. DataPulse te obaveštava pre nego što broj pređe granicu — ne posle.</p>
-</div>
-<div class="feature-card">
-<div class="icon">📊</div>
-<h3 data-sr="Dashboard bez SQL-a" data-en="Dashboard without SQL">Dashboard bez SQL-a</h3>
-<p data-sr="Svako u timu vidi iste brojeve bez pisanja upita. PM, founder, CS menadžer — svi gledaju isti dashboard." data-en="Everyone on the team sees the same numbers without writing queries. PM, founder, CS manager — all viewing the same dashboard.">Svako u timu vidi iste brojeve bez pisanja upita. PM, founder, CS menadžer — svi gledaju isti dashboard.</p>
-</div>
-<div class="feature-card">
-<div class="icon">🔒</div>
-<h3>GDPR &amp; EU compliance</h3>
-<p data-sr="Svi podaci se čuvaju na EU serverima. GDPR compliant by design. DPA dostupan za svaki workspace." data-en="All data stored on EU servers. GDPR compliant by design. DPA available for every workspace.">Svi podaci se čuvaju na EU serverima. GDPR compliant by design. DPA dostupan za svaki workspace.</p>
-</div>
+<div class="feature-card"><div class="f-icon">⚡</div><h3>Real-time ingestion API</h3><p data-sr="REST API prima metrike u realnom vremenu iz bilo kog izvora. Jedan endpoint, konzistentan schema, verzionisan od prvog dana." data-en="REST API accepts metrics in real time from any source. One endpoint, consistent schema, versioned from day one.">REST API prima metrike u realnom vremenu iz bilo kog izvora. Jedan endpoint, konzistentan schema, verzionisan od prvog dana.</p></div>
+<div class="feature-card"><div class="f-icon">🔔</div><h3 data-sr="Pametni alarmi" data-en="Smart alerts">Pametni alarmi</h3><p data-sr="Postavi threshold za bilo koju metriku. DataPulse te obaveštava pre nego što broj pređe granicu — ne posle." data-en="Set a threshold for any metric. DataPulse notifies you before a number crosses the line — not after.">Postavi threshold za bilo koju metriku. DataPulse te obaveštava pre nego što broj pređe granicu — ne posle.</p></div>
+<div class="feature-card"><div class="f-icon">📊</div><h3 data-sr="Dashboard bez SQL-a" data-en="Dashboard without SQL">Dashboard bez SQL-a</h3><p data-sr="Svako u timu vidi iste brojeve bez pisanja upita. PM, founder, CS menadžer — svi gledaju isti dashboard." data-en="Everyone sees the same numbers without writing queries. PM, founder, CS manager — all on the same dashboard.">Svako u timu vidi iste brojeve bez pisanja upita. PM, founder, CS menadžer — svi gledaju isti dashboard.</p></div>
+<div class="feature-card"><div class="f-icon">🔒</div><h3>GDPR &amp; EU compliance</h3><p data-sr="Svi podaci se čuvaju na EU serverima. GDPR compliant by design. DPA dostupan za svaki workspace." data-en="All data stored on EU servers. GDPR compliant by design. DPA available for every workspace.">Svi podaci se čuvaju na EU serverima. GDPR compliant by design. DPA dostupan za svaki workspace.</p></div>
 </div>
 </div>
 </section>
 
+<!-- COMPARISON -->
 <section>
 <div class="container">
 <div class="section-label" data-sr="Poređenje" data-en="Comparison">Poređenje</div>
@@ -270,26 +329,27 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 <thead>
 <tr>
 <th data-sr="Funkcija" data-en="Feature">Funkcija</th>
-<th style="color:#6366f1">DataPulse</th>
+<th class="accent-col">DataPulse</th>
 <th>Excel / Sheets</th>
 <th>Datadog</th>
 <th>Looker</th>
 </tr>
 </thead>
 <tbody>
-<tr class="hl"><td data-sr="API ingestion iz bilo kog izvora" data-en="API ingestion from any source">API ingestion iz bilo kog izvora</td><td class="check-icon">✓</td><td class="cross-icon">✗</td><td class="check-icon">✓</td><td class="partial-icon">~</td></tr>
-<tr><td data-sr="Bez SQL znanja" data-en="No SQL knowledge required">Bez SQL znanja</td><td class="check-icon">✓</td><td class="check-icon">✓</td><td class="cross-icon">✗</td><td class="cross-icon">✗</td></tr>
-<tr class="hl"><td data-sr="Real-time alarmi" data-en="Real-time alerts">Real-time alarmi</td><td class="check-icon">✓</td><td class="cross-icon">✗</td><td class="check-icon">✓</td><td class="partial-icon">~</td></tr>
-<tr><td data-sr="Cena za early-stage startup" data-en="Price for early-stage startup">Cena za early-stage startup</td><td class="check-icon">€0–149/mo</td><td class="check-icon">Besplatno</td><td class="cross-icon">$300+/mo</td><td class="cross-icon">$5,000+/mo</td></tr>
-<tr class="hl"><td>GDPR &amp; EU serveri</td><td class="check-icon">✓</td><td class="partial-icon">~</td><td class="partial-icon">~</td><td class="partial-icon">~</td></tr>
-<tr><td data-sr="Setup za manje od 5 min" data-en="Setup in under 5 minutes">Setup za manje od 5 min</td><td class="check-icon">✓</td><td class="check-icon">✓</td><td class="cross-icon">✗</td><td class="cross-icon">✗</td></tr>
+<tr class="hl"><td data-sr="API ingestion iz bilo kog izvora" data-en="API ingestion from any source">API ingestion iz bilo kog izvora</td><td class="ci">✓</td><td class="xi">✗</td><td class="ci">✓</td><td class="pi">~</td></tr>
+<tr><td data-sr="Bez SQL znanja" data-en="No SQL knowledge">Bez SQL znanja</td><td class="ci">✓</td><td class="ci">✓</td><td class="xi">✗</td><td class="xi">✗</td></tr>
+<tr class="hl"><td data-sr="Real-time alarmi" data-en="Real-time alerts">Real-time alarmi</td><td class="ci">✓</td><td class="xi">✗</td><td class="ci">✓</td><td class="pi">~</td></tr>
+<tr><td data-sr="Cena za early-stage" data-en="Price for early-stage">Cena za early-stage</td><td class="ci">€0–149/mo</td><td class="ci">Besplatno</td><td class="xi">$300+/mo</td><td class="xi">$5,000+/mo</td></tr>
+<tr class="hl"><td>GDPR &amp; EU serveri</td><td class="ci">✓</td><td class="pi">~</td><td class="pi">~</td><td class="pi">~</td></tr>
+<tr><td data-sr="Setup ispod 5 minuta" data-en="Setup under 5 minutes">Setup ispod 5 minuta</td><td class="ci">✓</td><td class="ci">✓</td><td class="xi">✗</td><td class="xi">✗</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
 
-<section class="surface" id="cene">
+<!-- PRICING -->
+<section class="surface-bg" id="cene">
 <div class="container">
 <div class="section-label" data-sr="Cene" data-en="Pricing">Cene</div>
 <div class="section-title" data-sr="Transparentne cene. Bez iznenađenja." data-en="Transparent pricing. No surprises.">Transparentne cene. Bez iznenađenja.</div>
@@ -299,13 +359,13 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 <div class="price-amount">€0<span>/mo</span></div>
 <div class="price-desc" data-sr="Za pojedince i male timove koji tek počinju." data-en="For individuals and small teams just getting started.">Za pojedince i male timove koji tek počinju.</div>
 <ul class="price-features">
-<li><span class="check-icon">✓</span><span data-sr="1 workspace" data-en="1 workspace">1 workspace</span></li>
-<li><span class="check-icon">✓</span><span data-sr="5 metrika" data-en="5 metrics">5 metrika</span></li>
-<li><span class="check-icon">✓</span><span data-sr="7 dana istorije" data-en="7 days history">7 dana istorije</span></li>
-<li><span class="check-icon">✓</span><span>REST API</span></li>
-<li><span class="cross-icon">✗</span><span style="color:var(--muted)" data-sr="Alarmi" data-en="Alerts">Alarmi</span></li>
+<li><span class="ci">✓</span><span data-sr="1 workspace" data-en="1 workspace">1 workspace</span></li>
+<li><span class="ci">✓</span><span data-sr="5 metrika" data-en="5 metrics">5 metrika</span></li>
+<li><span class="ci">✓</span><span data-sr="7 dana istorije" data-en="7 days history">7 dana istorije</span></li>
+<li><span class="ci">✓</span><span>REST API</span></li>
+<li><span class="xi">✗</span><span style="color:var(--muted)" data-sr="Alarmi" data-en="Alerts">Alarmi</span></li>
 </ul>
-<button class="btn-outline" style="width:100%" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
+<button class="btn-outline" style="width:100%" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
 </div>
 <div class="price-card featured">
 <div class="price-badge" data-sr="Najpopularnije" data-en="Most popular">Najpopularnije</div>
@@ -313,24 +373,24 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 <div class="price-amount">€49<span>/mo</span></div>
 <div class="price-desc" data-sr="Za rastuće timove kojima treba pouzdanost." data-en="For growing teams that need reliability.">Za rastuće timove kojima treba pouzdanost.</div>
 <ul class="price-features">
-<li><span class="check-icon">✓</span><span data-sr="3 workspaces" data-en="3 workspaces">3 workspaces</span></li>
-<li><span class="check-icon">✓</span><span data-sr="50 metrika" data-en="50 metrics">50 metrika</span></li>
-<li><span class="check-icon">✓</span><span data-sr="90 dana istorije" data-en="90 days history">90 dana istorije</span></li>
-<li><span class="check-icon">✓</span><span data-sr="Alarmi + webhook" data-en="Alerts + webhook">Alarmi + webhook</span></li>
-<li><span class="check-icon">✓</span><span data-sr="Email digest" data-en="Email digest">Email digest</span></li>
+<li><span class="ci">✓</span><span data-sr="3 workspaces" data-en="3 workspaces">3 workspaces</span></li>
+<li><span class="ci">✓</span><span data-sr="50 metrika" data-en="50 metrics">50 metrika</span></li>
+<li><span class="ci">✓</span><span data-sr="90 dana istorije" data-en="90 days history">90 dana istorije</span></li>
+<li><span class="ci">✓</span><span data-sr="Alarmi + webhook" data-en="Alerts + webhook">Alarmi + webhook</span></li>
+<li><span class="ci">✓</span><span data-sr="Email digest" data-en="Email digest">Email digest</span></li>
 </ul>
-<button class="btn" style="width:100%" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
+<button class="btn" style="width:100%" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
 </div>
 <div class="price-card">
 <div class="price-tier">Growth</div>
 <div class="price-amount">€149<span>/mo</span></div>
 <div class="price-desc" data-sr="Za timove kojima su podaci kritični za odluke." data-en="For teams where data drives every decision.">Za timove kojima su podaci kritični za odluke.</div>
 <ul class="price-features">
-<li><span class="check-icon">✓</span><span data-sr="Neograničeni workspaces" data-en="Unlimited workspaces">Neograničeni workspaces</span></li>
-<li><span class="check-icon">✓</span><span data-sr="Neograničene metrike" data-en="Unlimited metrics">Neograničene metrike</span></li>
-<li><span class="check-icon">✓</span><span data-sr="2 godine istorije" data-en="2 years history">2 godine istorije</span></li>
-<li><span class="check-icon">✓</span><span data-sr="Slack integracija" data-en="Slack integration">Slack integracija</span></li>
-<li><span class="check-icon">✓</span><span>DPA &amp; priority support</span></li>
+<li><span class="ci">✓</span><span data-sr="Neograničeni workspaces" data-en="Unlimited workspaces">Neograničeni workspaces</span></li>
+<li><span class="ci">✓</span><span data-sr="Neograničene metrike" data-en="Unlimited metrics">Neograničene metrike</span></li>
+<li><span class="ci">✓</span><span data-sr="2 godine istorije" data-en="2 years history">2 godine istorije</span></li>
+<li><span class="ci">✓</span><span data-sr="Slack integracija" data-en="Slack integration">Slack integracija</span></li>
+<li><span class="ci">✓</span><span>DPA &amp; priority support</span></li>
 </ul>
 <button class="btn-outline" style="width:100%" data-sr="Kontaktiraj nas" data-en="Contact us">Kontaktiraj nas</button>
 </div>
@@ -338,66 +398,36 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 </div>
 </section>
 
+<!-- TESTIMONIALS -->
 <section>
 <div class="container">
 <div class="section-label" data-sr="Korisnici" data-en="Testimonials">Korisnici</div>
 <div class="section-title" data-sr="Šta kažu timovi koji koriste DataPulse" data-en="What teams using DataPulse say">Šta kažu timovi koji koriste DataPulse</div>
-<div class="testimonials-grid">
-<div class="testimonial">
-<p data-sr='"Pre DataPulse-a, weekly metrics review je izgledao ovako: 20 minuta debate o tome čiji je broj tačan, 5 minuta odlučivanja. Sada je obrnuto."' data-en='"Before DataPulse, our weekly metrics review looked like this: 20 minutes debating whose number was correct, 5 minutes deciding. Now it is the other way around."'>"Pre DataPulse-a, weekly metrics review je izgledao ovako: 20 minuta debate o tome čiji je broj tačan, 5 minuta odlučivanja. Sada je obrnuto."</p>
-<div class="testimonial-author">
-<div class="avatar">M</div>
-<div><div class="author-name">Marko Novak</div><div class="author-role">Co-founder, Flowbit (Ljubljana)</div></div>
-</div>
-</div>
-<div class="testimonial">
-<p data-sr='"Imamo 4 izvora podataka i 2 developera. DataPulse je jedino rešenje koje smo integrišali za jedan dan i odmah videli vrednost."' data-en='"We have 4 data sources and 2 developers. DataPulse is the only solution we integrated in one day and immediately saw value."'>"Imamo 4 izvora podataka i 2 developera. DataPulse je jedino rešenje koje smo integrišali za jedan dan i odmah videli vrednost."</p>
-<div class="testimonial-author">
-<div class="avatar">A</div>
-<div><div class="author-name">Ana Kovač</div><div class="author-role">Head of Product, Receevi (Zagreb)</div></div>
-</div>
-</div>
-<div class="testimonial">
-<p data-sr='"Naš board traži iste metrike svaki kvartal. Ranije sam trošio dan na pripremu. Sada im šaljem link na DataPulse dashboard."' data-en='"Our board asks for the same metrics every quarter. I used to spend a day preparing. Now I send them a link to the DataPulse dashboard."'>"Naš board traži iste metrike svaki kvartal. Ranije sam trošio dan na pripremu. Sada im šaljem link na DataPulse dashboard."</p>
-<div class="testimonial-author">
-<div class="avatar">T</div>
-<div><div class="author-name">Tomáš Blaha</div><div class="author-role">CEO, Stacknote (Prague)</div></div>
-</div>
-</div>
+<div class="test-grid">
+<div class="testimonial"><div class="quote">"</div><p data-sr="Pre DataPulse-a, weekly metrics review je izgledao ovako: 20 minuta debate o tome čiji je broj tačan, 5 minuta odlučivanja. Sada je obrnuto." data-en="Before DataPulse, our weekly metrics review looked like this: 20 minutes debating whose number was correct, 5 minutes deciding. Now it is the other way around.">Pre DataPulse-a, weekly metrics review je izgledao ovako: 20 minuta debate o tome čiji je broj tačan, 5 minuta odlučivanja. Sada je obrnuto.</p><div class="t-author"><div class="avatar">M</div><div><div class="t-name">Marko Novak</div><div class="t-role">Co-founder, Flowbit (Ljubljana)</div></div></div></div>
+<div class="testimonial"><div class="quote">"</div><p data-sr="Imamo 4 izvora podataka i 2 developera. DataPulse je jedino rešenje koje smo integrišali za jedan dan i odmah videli vrednost." data-en="We have 4 data sources and 2 developers. DataPulse is the only solution we integrated in one day and immediately saw value.">Imamo 4 izvora podataka i 2 developera. DataPulse je jedino rešenje koje smo integrišali za jedan dan i odmah videli vrednost.</p><div class="t-author"><div class="avatar">A</div><div><div class="t-name">Ana Kovač</div><div class="t-role">Head of Product, Receevi (Zagreb)</div></div></div></div>
+<div class="testimonial"><div class="quote">"</div><p data-sr="Naš board traži iste metrike svaki kvartal. Ranije sam trošio dan na pripremu. Sada im šaljem link na DataPulse dashboard." data-en="Our board asks for the same metrics every quarter. I used to spend a day preparing. Now I send them a link to the DataPulse dashboard.">Naš board traži iste metrike svaki kvartal. Ranije sam trošio dan na pripremu. Sada im šaljem link na DataPulse dashboard.</p><div class="t-author"><div class="avatar">T</div><div><div class="t-name">Tomáš Blaha</div><div class="t-role">CEO, Stacknote (Prague)</div></div></div></div>
 </div>
 </div>
 </section>
 
-<section class="surface" id="faq">
+<!-- FAQ -->
+<section class="surface-bg" id="faq">
 <div class="container">
 <div class="section-label">FAQ</div>
 <div class="section-title" data-sr="Česta pitanja" data-en="Frequently asked questions">Česta pitanja</div>
 <div class="faq-list">
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span data-sr="Da li mi treba data warehouse?" data-en="Do I need a data warehouse?">Da li mi treba data warehouse?</span><span class="faq-arrow">+</span></div>
-<div class="faq-answer" data-sr="Ne. DataPulse prima metrike direktno via API bez data warehouse-a. Dizajniran za kompanije u ranoj fazi." data-en="No. DataPulse accepts metrics directly via API without a data warehouse. Designed for early-stage companies.">Ne. DataPulse prima metrike direktno via API bez data warehouse-a. Dizajniran za kompanije u ranoj fazi.</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span data-sr="Koliko traje integracija?" data-en="How long does integration take?">Koliko traje integracija?</span><span class="faq-arrow">+</span></div>
-<div class="faq-answer" data-sr="Manje od 5 minuta za prvu metriku. Jedan POST request, jedan API ključ, jedan endpoint." data-en="Under 5 minutes for your first metric. One POST request, one API key, one endpoint.">Manje od 5 minuta za prvu metriku. Jedan POST request, jedan API ključ, jedan endpoint.</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span data-sr="Gde se čuvaju moji podaci?" data-en="Where is my data stored?">Gde se čuvaju moji podaci?</span><span class="faq-arrow">+</span></div>
-<div class="faq-answer" data-sr="Isključivo na EU serverima. GDPR compliant by design. DPA dostupan za sve plaćene planove." data-en="Exclusively on EU servers. GDPR compliant by design. DPA available for all paid plans.">Isključivo na EU serverima. GDPR compliant by design. DPA dostupan za sve plaćene planove.</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span data-sr="Mogu li bez tehničkog znanja?" data-en="Can I use it without technical knowledge?">Mogu li bez tehničkog znanja?</span><span class="faq-arrow">+</span></div>
-<div class="faq-answer" data-sr="Dashboard i alarmi su dizajnirani za PM-ove i foundere. Integracija zahteva jednog developera, jednom." data-en="Dashboard and alerts are designed for PMs and founders. Integration requires one developer, once.">Dashboard i alarmi su dizajnirani za PM-ove i foundere. Integracija zahteva jednog developera, jednom.</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span data-sr="Šta ako prekoračim limit plana?" data-en="What if I exceed my plan limits?">Šta ako prekoračim limit plana?</span><span class="faq-arrow">+</span></div>
-<div class="faq-answer" data-sr="Nećemo blokirati podatke. Dobićeš notifikaciju i 14 dana da upgradeš. Bez automatskog naplaćivanja." data-en="We will not block your data. You receive a notification and 14 days to upgrade. No automatic charges.">Nećemo blokirati podatke. Dobićeš notifikaciju i 14 dana da upgradeš. Bez automatskog naplaćivanja.</div>
-</div>
+<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Da li mi treba data warehouse?" data-en="Do I need a data warehouse?">Da li mi treba data warehouse?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Ne. DataPulse prima metrike direktno via API bez data warehouse-a. Dizajniran za kompanije u ranoj fazi." data-en="No. DataPulse accepts metrics directly via API without a data warehouse. Designed for early-stage companies.">Ne. DataPulse prima metrike direktno via API bez data warehouse-a. Dizajniran za kompanije u ranoj fazi.</div></div>
+<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Koliko traje integracija?" data-en="How long does integration take?">Koliko traje integracija?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Manje od 5 minuta za prvu metriku. Jedan POST request, jedan API ključ, jedan endpoint." data-en="Under 5 minutes for your first metric. One POST request, one API key, one endpoint.">Manje od 5 minuta za prvu metriku. Jedan POST request, jedan API ključ, jedan endpoint.</div></div>
+<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Gde se čuvaju moji podaci?" data-en="Where is my data stored?">Gde se čuvaju moji podaci?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Isključivo na EU serverima. GDPR compliant by design. DPA dostupan za sve plaćene planove." data-en="Exclusively on EU servers. GDPR compliant by design. DPA available for all paid plans.">Isključivo na EU serverima. GDPR compliant by design. DPA dostupan za sve plaćene planove.</div></div>
+<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Mogu li bez tehničkog znanja?" data-en="Can I use it without technical knowledge?">Mogu li bez tehničkog znanja?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Dashboard i alarmi su dizajnirani za PM-ove i foundere. Integracija zahteva jednog developera, jednom." data-en="Dashboard and alerts are designed for PMs and founders. Integration requires one developer, once.">Dashboard i alarmi su dizajnirani za PM-ove i foundere. Integracija zahteva jednog developera, jednom.</div></div>
+<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Šta ako prekoračim limit plana?" data-en="What if I exceed my plan limits?">Šta ako prekoračim limit plana?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Nećemo blokirati podatke. Dobićeš notifikaciju i 14 dana da upgradeš. Bez automatskog naplaćivanja." data-en="We will not block your data. You receive a notification and 14 days to upgrade. No automatic charges.">Nećemo blokirati podatke. Dobićeš notifikaciju i 14 dana da upgradeš. Bez automatskog naplaćivanja.</div></div>
 </div>
 </div>
 </section>
 
-<div class="container">
+<!-- CTA -->
+<div class="container cta-wrap">
 <div class="cta-banner">
 <h2 data-sr="Spreman da imaš jedan izvor istine?" data-en="Ready to have one source of truth?">Spreman da imaš jedan izvor istine?</h2>
 <p data-sr="Poveži prvu metriku za manje od 5 minuta. Besplatno, bez kreditne kartice." data-en="Connect your first metric in under 5 minutes. Free, no credit card required.">Poveži prvu metriku za manje od 5 minuta. Besplatno, bez kreditne kartice.</p>
@@ -405,6 +435,7 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
 <div class="container">
 <div class="footer-inner">
@@ -421,10 +452,19 @@ footer{border-top:1px solid var(--border);padding:40px 0}
 </footer>
 
 <script>
+// THEME
+let theme = 'dark';
+function toggleTheme() {
+  theme = theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('theme-btn').textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+
+// LANGUAGE
 let lang = 'sr';
 function toggleLang() {
   lang = lang === 'sr' ? 'en' : 'sr';
-  document.querySelector('.lang-toggle').textContent = lang === 'sr' ? 'EN' : 'SR';
+  document.getElementById('lang-btn').textContent = lang === 'sr' ? 'EN' : 'SR';
   document.querySelectorAll('[data-sr]').forEach(el => {
     const val = el.getAttribute('data-' + lang);
     if (!val) return;
@@ -432,20 +472,11 @@ function toggleLang() {
     if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
   });
 }
+
+// FAQ
 function toggleFaq(el) { el.classList.toggle('open'); }
-function focusEmail() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  setTimeout(() => document.getElementById('hero-email').focus(), 400);
-}
-function handleSignup() {
-  const email = document.getElementById('hero-email').value;
-  if (!email || !email.includes('@')) {
-    alert(lang === 'sr' ? 'Unesi ispravan email.' : 'Please enter a valid email.');
-    return;
-  }
-  alert(lang === 'sr' ? 'Hvala! Javićemo ti se uskoro na ' + email : 'Thank you! We will reach out to ' + email + ' soon.');
-  document.getElementById('hero-email').value = '';
-}
+
+// SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -453,6 +484,55 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) t.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// FOCUS EMAIL
+function focusEmail() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => document.getElementById('hero-email').focus(), 500);
+}
+
+// FORMSPREE EMAIL SIGNUP
+async function handleSignup(e) {
+  e.preventDefault();
+  const email = document.getElementById('hero-email').value;
+  const status = document.getElementById('form-status');
+  const btn = e.submitter;
+
+  if (!email || !email.includes('@')) {
+    status.textContent = lang === 'sr' ? 'Unesi ispravan email.' : 'Please enter a valid email.';
+    status.className = 'form-status error';
+    return;
+  }
+
+  btn.textContent = lang === 'sr' ? 'Šaljem...' : 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    if (res.ok) {
+      status.textContent = lang === 'sr'
+        ? '✓ Prijava uspešna! Javićemo ti se uskoro.'
+        : '✓ Success! We will reach out soon.';
+      status.className = 'form-status success';
+      document.getElementById('hero-email').value = '';
+    } else {
+      throw new Error('Server error');
+    }
+  } catch {
+    status.textContent = lang === 'sr'
+      ? 'Greška. Pokušaj ponovo ili nas kontaktiraj na hello@datapulse.rs'
+      : 'Error. Please try again or contact hello@datapulse.rs';
+    status.className = 'form-status error';
+  }
+
+  btn.textContent = lang === 'sr' ? 'Počni besplatno' : 'Start for free';
+  btn.disabled = false;
+}
 </script>
 </body>
 </html>
