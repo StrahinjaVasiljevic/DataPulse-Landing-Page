@@ -1,538 +1,531 @@
 <!DOCTYPE html>
-<html lang="sr" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataPulse — Jedna platforma. Svi tvoji brojevi.</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
---accent1:#6366f1;--accent2:#8b5cf6;--accent3:#06b6d4;
---gradient:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
---gradient-text:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
-}
-[data-theme="dark"]{
---bg:#0a0a0a;--surface:#111111;--surface2:#161616;--border:#1e1e1e;
---text:#ffffff;--muted:#888888;--card:#111111;
-}
-[data-theme="light"]{
---bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--border:#e2e8f0;
---text:#0f172a;--muted:#64748b;--card:#ffffff;
-}
-body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.6;transition:background 0.3s,color 0.3s}
-a{color:inherit;text-decoration:none}
-.container{max-width:1100px;margin:0 auto;padding:0 24px}
-
-/* NAV */
-nav{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:var(--bg);backdrop-filter:blur(10px);z-index:100;transition:background 0.3s}
-[data-theme="dark"] nav{background:rgba(10,10,10,0.95)}
-[data-theme="light"] nav{background:rgba(248,250,252,0.95)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:20px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:32px;font-size:14px;color:var(--muted)}
-.nav-links a:hover{color:var(--text)}
-.nav-right{display:flex;align-items:center;gap:12px}
-.icon-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
-.icon-btn:hover{border-color:var(--accent1)}
-.lang-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.2s}
-.lang-btn:hover{border-color:var(--accent1);color:var(--text)}
-.btn{background:var(--gradient);color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:700;transition:opacity 0.2s;position:relative}
-.btn:hover{opacity:0.88}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s}
-.btn-outline:hover{border-color:var(--accent1)}
-
-/* HERO */
-.hero{padding:100px 0 80px;text-align:center}
-.section-label{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero h1{font-size:clamp(36px,6vw,68px);font-weight:800;line-height:1.1;margin-bottom:24px;letter-spacing:-2px}
-.grad-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero>div>p{font-size:20px;color:var(--muted);max-width:580px;margin:0 auto 40px}
-.hero-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.hero-form input[type="email"]{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:12px 20px;border-radius:8px;font-size:15px;width:300px;transition:border 0.2s}
-.hero-form input[type="email"]:focus{outline:none;border-color:var(--accent1)}
-.form-status{font-size:14px;margin-bottom:24px;min-height:20px;color:var(--muted)}
-.form-status.success{color:#22c55e}
-.form-status.error{color:#ef4444}
-.trust-badges{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:60px}
-.badge{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
-.badge .g{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700}
-
-/* MOCK DASHBOARD */
-.dashboard-preview{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:800px;margin:0 auto;text-align:left;box-shadow:0 20px 60px rgba(99,102,241,0.1)}
-.db-header{display:flex;align-items:center;gap:8px;margin-bottom:20px}
-.db-dot{width:12px;height:12px;border-radius:50%}
-.db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
-.db-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
-.db-label{font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:1px}
-.db-value{font-size:26px;font-weight:800}
-.db-delta-green{font-size:12px;color:#22c55e;margin-top:4px}
-.db-delta-yellow{font-size:12px;color:#f59e0b;margin-top:4px}
-.db-bar{height:5px;background:var(--border);border-radius:3px;margin-top:12px}
-.db-bar-fill{height:100%;border-radius:3px}
-
-/* SECTIONS */
-section{padding:80px 0}
-.section-title{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:16px;letter-spacing:-1px}
-.section-sub{color:var(--muted);font-size:18px;max-width:560px}
-.surface-bg{background:var(--surface2)}
-
-/* PROBLEM */
-.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
-.problem-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color 0.2s,transform 0.2s}
-.problem-card:hover{border-color:var(--accent1);transform:translateY(-2px)}
-.p-icon{font-size:36px;margin-bottom:16px}
-.problem-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
-.problem-card p{color:var(--muted);font-size:15px}
-
-/* STEPS */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;margin-top:48px}
-.step{position:relative;padding-left:60px}
-.step-num{position:absolute;left:0;top:0;width:42px;height:42px;background:var(--gradient);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff}
-.step h3{font-size:18px;font-weight:700;margin-bottom:10px}
-.step p{color:var(--muted);font-size:15px}
-
-/* FEATURES */
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:48px}
-.feature-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color 0.2s,transform 0.2s}
-.feature-card:hover{border-color:var(--accent2);transform:translateY(-2px)}
-.f-icon{font-size:32px;margin-bottom:16px}
-.feature-card h3{font-size:17px;font-weight:700;margin-bottom:8px}
-.feature-card p{color:var(--muted);font-size:14px}
-
-/* TABLE */
-.table-wrap{overflow-x:auto;margin-top:48px;border-radius:16px;border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:15px}
-th{padding:16px 20px;text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:13px;background:var(--surface)}
-th.accent-col{background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.15));color:var(--accent1)}
-td{padding:14px 20px;border-bottom:1px solid var(--border)}
-td:first-child{color:var(--muted);font-size:14px}
-tr:last-child td{border-bottom:none}
-.ci{color:#22c55e;font-weight:700}
-.xi{color:#ef4444}
-.pi{color:#f59e0b}
-tr.hl{background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(6,182,212,0.06))}
-tr.hl td:first-child{font-weight:600;color:var(--text)}
-
-/* PRICING */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
-.price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;position:relative;transition:transform 0.2s}
-.price-card:hover{transform:translateY(-3px)}
-.price-card.featured{border-color:transparent;background:var(--card);position:relative}
-.price-card.featured::before{content:'';position:absolute;inset:-1px;border-radius:21px;background:var(--gradient);z-index:-1}
-.price-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gradient);color:#fff;padding:4px 18px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}
-.price-tier{font-size:14px;color:var(--muted);margin-bottom:8px;font-weight:600}
-.price-amount{font-size:52px;font-weight:900;margin-bottom:4px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.price-amount span{font-size:18px;font-weight:400;-webkit-text-fill-color:var(--muted);color:var(--muted)}
-.price-desc{color:var(--muted);font-size:14px;margin-bottom:28px}
-.price-features{list-style:none;margin-bottom:32px}
-.price-features li{padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:center;gap:10px}
-.price-features li:last-child{border:none}
-
-/* TESTIMONIALS */
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:48px}
-.testimonial{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color 0.2s}
-.testimonial:hover{border-color:var(--accent2)}
-.quote{font-size:32px;line-height:1;margin-bottom:12px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.testimonial p{font-size:15px;line-height:1.7;margin-bottom:20px;color:var(--muted)}
-.t-author{display:flex;align-items:center;gap:12px}
-.avatar{width:42px;height:42px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff}
-.t-name{font-weight:700;font-size:14px}
-.t-role{color:var(--muted);font-size:13px}
-
-/* FAQ */
-.faq-list{margin-top:48px;max-width:720px}
-.faq-item{border-bottom:1px solid var(--border);padding:20px 0;cursor:pointer}
-.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:17px;font-weight:600;gap:16px}
-.faq-arrow{color:var(--muted);transition:transform 0.25s;font-size:22px;flex-shrink:0}
-.faq-a{color:var(--muted);font-size:15px;margin-top:12px;display:none;line-height:1.7}
-.faq-item.open .faq-arrow{transform:rotate(45deg)}
-.faq-item.open .faq-a{display:block}
-
-/* CTA */
-.cta-wrap{margin:80px 0}
-.cta-banner{background:var(--gradient);border-radius:24px;padding:72px 40px;text-align:center;position:relative;overflow:hidden}
-.cta-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 60%);pointer-events:none}
-.cta-banner h2{font-size:clamp(24px,4vw,42px);font-weight:800;margin-bottom:16px;color:#fff}
-.cta-banner p{font-size:18px;margin-bottom:36px;color:rgba(255,255,255,0.85)}
-.btn-white{background:#fff;color:var(--accent1);border:none;padding:14px 36px;border-radius:10px;cursor:pointer;font-size:16px;font-weight:800;transition:transform 0.2s,box-shadow 0.2s}
-.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
-
-/* FOOTER */
-footer{border-top:1px solid var(--border);padding:40px 0}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-logo{font-size:18px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.footer-links{display:flex;gap:24px;color:var(--muted);font-size:14px}
-.footer-links a:hover{color:var(--text)}
-.footer-copy{color:var(--muted);font-size:13px}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-.nav-links{display:none}
-.db-grid{grid-template-columns:1fr}
-.hero-form{flex-direction:column;align-items:center}
-.hero-form input[type="email"]{width:100%;max-width:340px}
-.cta-banner{padding:48px 24px}
-.footer-inner{flex-direction:column;text-align:center}
-}
-</style>
+<title>DataPulse — Stop asking engineers for numbers.</title>
+<meta name="description" content="POST one metric. Get a versioned, queryable KPI and a dashboard view. API-first metrics infrastructure for engineering teams.">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-<div class="container">
-<div class="nav-inner">
-<div class="logo">DataPulse</div>
-<div class="nav-links">
-<a href="#kako-radi" data-sr="Kako radi" data-en="How it works">Kako radi</a>
-<a href="#funkcije" data-sr="Funkcije" data-en="Features">Funkcije</a>
-<a href="#cene" data-sr="Cene" data-en="Pricing">Cene</a>
-<a href="#faq">FAQ</a>
-</div>
-<div class="nav-right">
-<button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
-<button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
-<button class="btn" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
-</div>
-</div>
-</div>
+<nav role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="logo" aria-label="DataPulse">DataPulse</div>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#why-not-bi">Why not BI</a>
+        <a href="#for-who">Who it's for</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="nav-right">
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle color theme">🌙</button>
+        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page" target="_blank" rel="noopener" class="btn-outline">GitHub</a>
+        <a href="#signup" class="btn">Start free</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-<div class="container">
-<div class="section-label" data-sr="Metrika platforma za EU startape" data-en="Metrics platform for EU startups">Metrika platforma za EU startape</div>
-<h1>
-<span data-sr="Jedna platforma." data-en="One platform.">Jedna platforma.</span><br>
-<span class="grad-text" data-sr="Svi tvoji brojevi." data-en="All your numbers.">Svi tvoji brojevi.</span>
-</h1>
-<p data-sr="DataPulse prima metrike iz svih tvojih izvora, normalizuje ih i prikazuje na jednom mestu — u realnom vremenu, bez SQL-a, bez čekanja." data-en="DataPulse ingests metrics from all your sources, normalizes them, and displays everything in one place — real-time, no SQL, no waiting.">DataPulse prima metrike iz svih tvojih izvora, normalizuje ih i prikazuje na jednom mestu — u realnom vremenu, bez SQL-a, bez čekanja.</p>
+<section class="hero" id="start" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero-inner">
 
-<form id="signup-form" onsubmit="handleSignup(event)">
-<div class="hero-form">
-<input type="email" id="hero-email" name="email" placeholder="tvoj@email.com" required />
-<button type="submit" class="btn" style="padding:12px 28px;font-size:15px" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
-</div>
-</form>
-<div class="form-status" id="form-status"></div>
+      <div class="hero-text">
+        <div class="section-label">Metrics infrastructure</div>
+        <h1 id="hero-heading">
+          Stop asking engineers<br>for numbers.
+        </h1>
+        <p class="hero-sub">Make metrics already be there.</p>
+        <p class="hero-desc">
+          POST one metric. Get a versioned, queryable KPI and a dashboard view.
+          API-first — dashboards are consumers, not the product.
+        </p>
+        <div class="hero-ctas">
+          <a href="#signup" class="btn" aria-label="Start using DataPulse for free">Start free</a>
+          <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
+             target="_blank" rel="noopener" class="btn-outline"
+             aria-label="Clone and run DataPulse locally">Clone &amp; run locally</a>
+        </div>
+        <p class="hero-note">No credit card. Local first-run in minutes.</p>
+      </div>
 
-<div class="trust-badges">
-<div class="badge"><span class="g">✓</span><span data-sr="Bez kreditne kartice" data-en="No credit card required">Bez kreditne kartice</span></div>
-<div class="badge"><span class="g">✓</span><span>GDPR compliant</span></div>
-<div class="badge"><span class="g">✓</span><span data-sr="EU serveri" data-en="EU servers">EU serveri</span></div>
-</div>
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-dot" style="background:#ef4444"></span>
+            <span class="code-dot" style="background:#f59e0b"></span>
+            <span class="code-dot" style="background:#22c55e"></span>
+            <span class="code-filename">ingest.sh</span>
+          </div>
+          <pre class="code-body"><code><span class="c-dim">$ </span><span class="c-cmd">curl</span> -X POST /api/metrics \
+  -H <span class="c-str">"Authorization: Bearer sk_live_xxx"</span> \
+  -d <span class="c-str">'{
+    "metric": "active_users",
+    "value": 1243,
+    "source": "backend-service",
+    "workspace": "acme-prod"
+  }'</span></code></pre>
+          <div class="code-footer">
+            <span class="status-dot"></span>
+            <span>This metric appears on the dashboard in ~2s.</span>
+          </div>
+        </div>
+      </div>
 
-<div class="dashboard-preview">
-<div class="db-header">
-<div class="db-dot" style="background:#ef4444"></div>
-<div class="db-dot" style="background:#f59e0b"></div>
-<div class="db-dot" style="background:#22c55e"></div>
-<span style="margin-left:12px;font-size:13px;color:var(--muted)">DataPulse — dev_workspace</span>
-</div>
-<div class="db-grid">
-<div class="db-card">
-<div class="db-label">ACTIVE USERS</div>
-<div class="db-value" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3,842</div>
-<div class="db-delta-green">↑ +12% vs last week</div>
-<div class="db-bar"><div class="db-bar-fill" style="width:72%;background:linear-gradient(90deg,#6366f1,#8b5cf6)"></div></div>
-</div>
-<div class="db-card">
-<div class="db-label">MRR</div>
-<div class="db-value" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">€14,200</div>
-<div class="db-delta-green">↑ +8% vs last month</div>
-<div class="db-bar"><div class="db-bar-fill" style="width:58%;background:linear-gradient(90deg,#8b5cf6,#06b6d4)"></div></div>
-</div>
-<div class="db-card">
-<div class="db-label">CHURN RATE</div>
-<div class="db-value" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2.1%</div>
-<div class="db-delta-yellow">→ stable</div>
-<div class="db-bar"><div class="db-bar-fill" style="width:21%;background:#f59e0b"></div></div>
-</div>
-</div>
-<div style="font-size:12px;color:var(--muted)">📡 <span data-sr="Izvori: Stripe · Mixpanel · PostgreSQL · Ažurirano malopre" data-en="Sources: Stripe · Mixpanel · PostgreSQL · Updated just now">Izvori: Stripe · Mixpanel · PostgreSQL · Ažurirano malopre</span></div>
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="surface-bg" id="problem">
-<div class="container">
-<div class="section-label" data-sr="Problem" data-en="The problem">Problem</div>
-<div class="section-title" data-sr="Prepoznaješ li ovo?" data-en="Does this sound familiar?">Prepoznaješ li ovo?</div>
-<div class="section-sub" data-sr="Svaka kompanija koja raste dolazi do istog zida." data-en="Every growing company hits the same wall.">Svaka kompanija koja raste dolazi do istog zida.</div>
-<div class="problem-grid">
-<div class="problem-card">
-<div class="p-icon">🗂️</div>
-<h3 data-sr="Brojevi svuda, istina nigde" data-en="Numbers everywhere, truth nowhere">Brojevi svuda, istina nigde</h3>
-<p data-sr="Marketing ima jedan broj u Mixpanelu. Prodaja drugi u Salesforceu. IT treći u bazi. Svaki sastanak počinje raspravom o tome koji je tačan." data-en="Marketing has one number in Mixpanel. Sales has another in Salesforce. IT has a third in the database. Every meeting starts with a debate about which one is correct.">Marketing ima jedan broj u Mixpanelu. Prodaja drugi u Salesforceu. IT treći u bazi. Svaki sastanak počinje raspravom o tome koji je tačan.</p>
-</div>
-<div class="problem-card">
-<div class="p-icon">⏳</div>
-<h3 data-sr="Izveštaj koji stigne prekasno" data-en="Reports that arrive too late">Izveštaj koji stigne prekasno</h3>
-<p data-sr="Do trenutka kada data inženjer pripremi izveštaj, odluka je već doneta ili propuštena. Stari podaci ne sprečavaju loše odluke." data-en="By the time a data engineer prepares the report, the decision has already been made or missed. Stale data does not prevent bad decisions.">Do trenutka kada data inženjer pripremi izveštaj, odluka je već doneta ili propuštena. Stari podaci ne sprečavaju loše odluke.</p>
-</div>
-<div class="problem-card">
-<div class="p-icon">💸</div>
-<h3 data-sr="Looker je preskup, Excel nije dovoljan" data-en="Looker is too expensive, Excel is not enough">Looker je preskup, Excel nije dovoljan</h3>
-<p data-sr="Enterprise BI platforme koštaju $50,000+ godišnje i zahtevaju data warehouse koji još nemaš. Google Sheets se sruši čim imaš 3 izvora podataka." data-en="Enterprise BI platforms cost $50,000+ per year and require a data warehouse you do not have yet. Google Sheets breaks the moment you have 3 data sources.">Enterprise BI platforme koštaju $50,000+ godišnje i zahtevaju data warehouse koji još nemaš. Google Sheets se sruši čim imaš 3 izvora podataka.</p>
-</div>
-</div>
-</div>
+<!-- SHOW ME IT'S REAL -->
+<section class="surface-bg" aria-labelledby="real-heading">
+  <div class="container">
+    <div class="section-label">Live demo</div>
+    <h2 id="real-heading" class="section-title">See it happen</h2>
+    <p class="section-sub">No backend. Simulated locally — same flow as production.</p>
+
+    <div class="real-layout">
+      <div class="real-left">
+        <div class="pipeline-steps" role="list" aria-label="Ingestion pipeline steps">
+          <div class="pipe-step" id="pipe-validate" role="listitem">
+            <span class="pipe-icon" aria-hidden="true">→</span>
+            <span class="pipe-label">validated</span>
+          </div>
+          <div class="pipe-step" id="pipe-normalize" role="listitem">
+            <span class="pipe-icon" aria-hidden="true">→</span>
+            <span class="pipe-label">normalized</span>
+          </div>
+          <div class="pipe-step" id="pipe-store" role="listitem">
+            <span class="pipe-icon" aria-hidden="true">→</span>
+            <span class="pipe-label">stored</span>
+          </div>
+        </div>
+        <button class="btn demo-btn" id="demo-btn" onclick="runDemo()"
+                aria-label="Send a sample metric and watch the pipeline">
+          Send sample metric
+        </button>
+        <div class="demo-status" id="demo-status" aria-live="polite" aria-atomic="true"></div>
+      </div>
+
+      <div class="real-right">
+        <div class="dash-card" id="demo-card" aria-label="Live dashboard card preview">
+          <div class="dash-card-label">active_users</div>
+          <div class="dash-card-value" id="demo-value">—</div>
+          <div class="dash-card-meta" id="demo-meta">waiting for metric…</div>
+          <div class="dash-card-bar">
+            <div class="dash-card-bar-fill" id="demo-bar" style="width:0%"></div>
+          </div>
+          <div class="dash-card-tags">
+            <span class="tag">workspace: acme-prod</span>
+            <span class="tag" id="demo-version-tag">v—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="kako-radi">
-<div class="container">
-<div class="section-label" data-sr="Kako radi" data-en="How it works">Kako radi</div>
-<div class="section-title" data-sr="Tri koraka do jednog izvora istine" data-en="Three steps to one source of truth">Tri koraka do jednog izvora istine</div>
-<div class="steps">
-<div class="step">
-<div class="step-num">1</div>
-<h3 data-sr="Poveži izvore" data-en="Connect your sources">Poveži izvore</h3>
-<p data-sr="Jedan API endpoint prima metrike iz bilo kog izvora — Stripe, Mixpanel, Postgres, CSV, ili tvoja custom aplikacija. Integracija traje manje od 5 minuta." data-en="One API endpoint accepts metrics from any source — Stripe, Mixpanel, Postgres, CSV, or your custom app. Integration takes under 5 minutes.">Jedan API endpoint prima metrike iz bilo kog izvora — Stripe, Mixpanel, Postgres, CSV, ili tvoja custom aplikacija. Integracija traje manje od 5 minuta.</p>
-</div>
-<div class="step">
-<div class="step-num">2</div>
-<h3 data-sr="DataPulse normalizuje" data-en="DataPulse normalizes">DataPulse normalizuje</h3>
-<p data-sr="Engine automatski normalizuje sve metrike u konzistentan format bez obzira na izvor. Definišeš metriku jednom, svi je koriste isto." data-en="The engine automatically normalizes all metrics into a consistent format regardless of source. You define a metric once, everyone uses it the same way.">Engine automatski normalizuje sve metrike u konzistentan format bez obzira na izvor. Definišeš metriku jednom, svi je koriste isto.</p>
-</div>
-<div class="step">
-<div class="step-num">3</div>
-<h3 data-sr="Tim donosi odluke" data-en="Your team makes decisions">Tim donosi odluke</h3>
-<p data-sr="Dashboard je dostupan svakome bez SQL-a i čekanja. Alarmi te obaveštavaju pre nego što problem postane kriza." data-en="The dashboard is available to everyone without SQL or waiting. Alerts notify you before a problem becomes a crisis.">Dashboard je dostupan svakome bez SQL-a i čekanja. Alarmi te obaveštavaju pre nego što problem postane kriza.</p>
-</div>
-</div>
-</div>
+<!-- DEBUG SNAPSHOT -->
+<section aria-labelledby="debug-heading">
+  <div class="container">
+    <div class="section-label">Debug snapshot</div>
+    <h2 id="debug-heading" class="section-title">What the response looks like</h2>
+    <p class="section-sub">Every ingested metric returns a structured response. No surprises.</p>
+
+    <div class="debug-panel" role="region" aria-label="Example API response">
+      <div class="debug-header">
+        <span class="debug-method">POST</span>
+        <span class="debug-path">/api/metrics</span>
+        <span class="debug-status ok">200 OK</span>
+      </div>
+      <pre class="debug-body"><code>{
+  <span class="c-key">"status"</span>:     <span class="c-str">"stored"</span>,
+  <span class="c-key">"latency"</span>:    <span class="c-val">1870</span>,       <span class="c-dim">// ms</span>
+  <span class="c-key">"version"</span>:    <span class="c-str">"v1"</span>,
+  <span class="c-key">"source"</span>:     <span class="c-str">"backend-service"</span>,
+  <span class="c-key">"timestamp"</span>:  <span class="c-str">"2026-05-04T09:12:31Z"</span>,
+  <span class="c-key">"workspace"</span>:  <span class="c-str">"acme-prod"</span>,
+  <span class="c-key">"metric"</span>:     <span class="c-str">"active_users"</span>,
+  <span class="c-key">"value"</span>:      <span class="c-val">1243</span>
+}</code></pre>
+      <div class="debug-grid">
+        <div class="debug-field"><span class="df-key">latency</span><span class="df-val">1870ms</span></div>
+        <div class="debug-field"><span class="df-key">version</span><span class="df-val">v1</span></div>
+        <div class="debug-field"><span class="df-key">source</span><span class="df-val">backend-service</span></div>
+        <div class="debug-field"><span class="df-key">timestamp</span><span class="df-val">2026-05-04T09:12:31Z</span></div>
+        <div class="debug-field"><span class="df-key">workspace</span><span class="df-val">acme-prod</span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- FEATURES -->
-<section class="surface-bg" id="funkcije">
-<div class="container">
-<div class="section-label" data-sr="Funkcije" data-en="Features">Funkcije</div>
-<div class="section-title" data-sr="Sve što tvoj tim treba" data-en="Everything your team needs">Sve što tvoj tim treba</div>
-<div class="features-grid">
-<div class="feature-card"><div class="f-icon">⚡</div><h3>Real-time ingestion API</h3><p data-sr="REST API prima metrike u realnom vremenu iz bilo kog izvora. Jedan endpoint, konzistentan schema, verzionisan od prvog dana." data-en="REST API accepts metrics in real time from any source. One endpoint, consistent schema, versioned from day one.">REST API prima metrike u realnom vremenu iz bilo kog izvora. Jedan endpoint, konzistentan schema, verzionisan od prvog dana.</p></div>
-<div class="feature-card"><div class="f-icon">🔔</div><h3 data-sr="Pametni alarmi" data-en="Smart alerts">Pametni alarmi</h3><p data-sr="Postavi threshold za bilo koju metriku. DataPulse te obaveštava pre nego što broj pređe granicu — ne posle." data-en="Set a threshold for any metric. DataPulse notifies you before a number crosses the line — not after.">Postavi threshold za bilo koju metriku. DataPulse te obaveštava pre nego što broj pređe granicu — ne posle.</p></div>
-<div class="feature-card"><div class="f-icon">📊</div><h3 data-sr="Dashboard bez SQL-a" data-en="Dashboard without SQL">Dashboard bez SQL-a</h3><p data-sr="Svako u timu vidi iste brojeve bez pisanja upita. PM, founder, CS menadžer — svi gledaju isti dashboard." data-en="Everyone sees the same numbers without writing queries. PM, founder, CS manager — all on the same dashboard.">Svako u timu vidi iste brojeve bez pisanja upita. PM, founder, CS menadžer — svi gledaju isti dashboard.</p></div>
-<div class="feature-card"><div class="f-icon">🔒</div><h3>GDPR &amp; EU compliance</h3><p data-sr="Svi podaci se čuvaju na EU serverima. GDPR compliant by design. DPA dostupan za svaki workspace." data-en="All data stored on EU servers. GDPR compliant by design. DPA available for every workspace.">Svi podaci se čuvaju na EU serverima. GDPR compliant by design. DPA dostupan za svaki workspace.</p></div>
-</div>
-</div>
+<!-- WHY NOT BI -->
+<section class="surface-bg" id="why-not-bi" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="section-label">Philosophy</div>
+    <h2 id="why-heading" class="section-title">Why DataPulse is not another BI tool</h2>
+    <div class="essay-wrap">
+      <p class="essay-text">
+        We don't query your databases. We don't connect to your warehouse. We receive
+        metrics — you push them, we store them, versioned, immediately queryable.
+      </p>
+      <p class="essay-text">
+        We don't want you to drag widgets. The dashboard is a read-only consumer of a
+        metric store. If your metric definition changes, you update it in one place and
+        every consumer reflects that — not in 14 places across four dashboards someone
+        built at 11pm.
+      </p>
+      <p class="essay-text">
+        We enforce metric definitions at ingestion time. Schema is validated on POST,
+        not on query. This means bad data is rejected before it pollutes your history —
+        not discovered three months later during a board meeting.
+      </p>
+      <p class="essay-text">
+        Dashboards are consumers — not the product. The product is a versioned, auditable,
+        workspace-scoped metric store with a stable API. The dashboard is one of several
+        possible consumers; alerts and CSV exports are others.
+      </p>
+      <blockquote class="essay-quote">
+        "If the definition of 'active user' changes, it changes in the schema — not in
+        a filter someone dragged onto a canvas."
+      </blockquote>
+    </div>
+  </div>
 </section>
 
-<!-- COMPARISON -->
-<section>
-<div class="container">
-<div class="section-label" data-sr="Poređenje" data-en="Comparison">Poređenje</div>
-<div class="section-title" data-sr="DataPulse vs alternativama" data-en="DataPulse vs alternatives">DataPulse vs alternativama</div>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th data-sr="Funkcija" data-en="Feature">Funkcija</th>
-<th class="accent-col">DataPulse</th>
-<th>Excel / Sheets</th>
-<th>Datadog</th>
-<th>Looker</th>
-</tr>
-</thead>
-<tbody>
-<tr class="hl"><td data-sr="API ingestion iz bilo kog izvora" data-en="API ingestion from any source">API ingestion iz bilo kog izvora</td><td class="ci">✓</td><td class="xi">✗</td><td class="ci">✓</td><td class="pi">~</td></tr>
-<tr><td data-sr="Bez SQL znanja" data-en="No SQL knowledge">Bez SQL znanja</td><td class="ci">✓</td><td class="ci">✓</td><td class="xi">✗</td><td class="xi">✗</td></tr>
-<tr class="hl"><td data-sr="Real-time alarmi" data-en="Real-time alerts">Real-time alarmi</td><td class="ci">✓</td><td class="xi">✗</td><td class="ci">✓</td><td class="pi">~</td></tr>
-<tr><td data-sr="Cena za early-stage" data-en="Price for early-stage">Cena za early-stage</td><td class="ci">€0–149/mo</td><td class="ci">Besplatno</td><td class="xi">$300+/mo</td><td class="xi">$5,000+/mo</td></tr>
-<tr class="hl"><td>GDPR &amp; EU serveri</td><td class="ci">✓</td><td class="pi">~</td><td class="pi">~</td><td class="pi">~</td></tr>
-<tr><td data-sr="Setup ispod 5 minuta" data-en="Setup under 5 minutes">Setup ispod 5 minuta</td><td class="ci">✓</td><td class="ci">✓</td><td class="xi">✗</td><td class="xi">✗</td></tr>
-</tbody>
-</table>
-</div>
-</div>
+<!-- ARCHITECTURE -->
+<section id="how-it-works" aria-labelledby="arch-heading">
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <h2 id="arch-heading" class="section-title">How data moves</h2>
+    <p class="section-sub">Linear. No side-channels. No warehouse dependency.</p>
+
+    <div class="arch-layout">
+      <div class="arch-flow" role="img" aria-label="Data flow: Service to Ingestion API to Normalization to Versioned Storage to Consumers">
+        <div class="arch-node source-node">
+          <div class="arch-node-title">Your service / script / CSV</div>
+          <div class="arch-node-sub">anything that can POST</div>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">↓</div>
+        <div class="arch-node">
+          <div class="arch-node-title">Ingestion API</div>
+          <div class="arch-node-sub">workspace-scoped keys · schema enforcement</div>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">↓</div>
+        <div class="arch-node">
+          <div class="arch-node-title">Metric Normalization</div>
+          <div class="arch-node-sub">type coercion · unit resolution · dedup</div>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">↓</div>
+        <div class="arch-node accent-node">
+          <div class="arch-node-title">Versioned Storage</div>
+          <div class="arch-node-sub">immutable history · v1 → v2 → v3</div>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">↓</div>
+        <div class="arch-node output-node">
+          <div class="arch-node-title">Dashboard / Alert / CSV export</div>
+          <div class="arch-node-sub">consumers — not the source of truth</div>
+        </div>
+      </div>
+
+      <div class="arch-badges">
+        <div class="arch-badge">
+          <span class="badge-x">No SQL</span>
+          <span class="badge-desc">Metrics are pushed, not queried from a database.</span>
+        </div>
+        <div class="arch-badge">
+          <span class="badge-x">No warehouse</span>
+          <span class="badge-desc">No Snowflake, no BigQuery, no dbt pipeline to maintain.</span>
+        </div>
+        <div class="arch-badge">
+          <span class="badge-x">No analyst dependency</span>
+          <span class="badge-desc">Engineers define once. Everyone reads without a ticket.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="surface-bg" id="for-who" aria-labelledby="forw-heading">
+  <div class="container">
+    <div class="section-label">Fit</div>
+    <h2 id="forw-heading" class="section-title">Is DataPulse right for you?</h2>
+
+    <div class="fit-grid">
+      <div class="fit-col fit-no" role="region" aria-labelledby="not-for-label">
+        <h3 id="not-for-label" class="fit-heading fit-heading-no">This is NOT for you if…</h3>
+        <ul class="fit-list">
+          <li>You want drag-and-drop BI canvases</li>
+          <li>You already have a mature data warehouse + dbt pipeline</li>
+          <li>You need pixel-perfect executive reporting</li>
+          <li>Your team has a dedicated data analyst for every squad</li>
+        </ul>
+      </div>
+      <div class="fit-col fit-yes" role="region" aria-labelledby="yes-for-label">
+        <h3 id="yes-for-label" class="fit-heading fit-heading-yes">This IS for you if…</h3>
+        <ul class="fit-list">
+          <li>Engineers keep being asked "what's the number?"</li>
+          <li>Metrics live in code comments and Slack threads</li>
+          <li>You want one source of truth without spinning up a warehouse</li>
+          <li>You'd rather push metrics than pull them from five places</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEFAULT VIEWS -->
+<section aria-labelledby="views-heading">
+  <div class="container">
+    <div class="section-label">Default views</div>
+    <h2 id="views-heading" class="section-title">Every metric gets these views by default</h2>
+    <p class="section-sub">No configuration. These exist the moment a metric is first ingested.</p>
+
+    <div class="views-list" role="list">
+      <div class="view-item" role="listitem">
+        <div class="view-num" aria-hidden="true">01</div>
+        <div class="view-content">
+          <h3 class="view-title">Current value</h3>
+          <p class="view-desc">The latest ingested value, with source and timestamp. Always reflects the last successful POST.</p>
+        </div>
+      </div>
+      <div class="view-item" role="listitem">
+        <div class="view-num" aria-hidden="true">02</div>
+        <div class="view-content">
+          <h3 class="view-title">Trend — 7 / 30 / 90 days</h3>
+          <p class="view-desc">Time-series view over configurable windows. Rolling aggregates are maintained at ingestion time — no query needed.</p>
+        </div>
+      </div>
+      <div class="view-item" role="listitem">
+        <div class="view-num" aria-hidden="true">03</div>
+        <div class="view-content">
+          <h3 class="view-title">Version history</h3>
+          <p class="view-desc">Every schema or definition change is versioned. v1 data and v2 data coexist without collision. Deprecate on your schedule.</p>
+        </div>
+      </div>
+      <div class="view-item" role="listitem">
+        <div class="view-num" aria-hidden="true">04</div>
+        <div class="view-content">
+          <h3 class="view-title">Threshold breaches</h3>
+          <p class="view-desc">A log of every time a metric crossed a defined threshold — value, direction, and ingestion timestamp recorded.</p>
+        </div>
+      </div>
+      <div class="view-item" role="listitem">
+        <div class="view-num" aria-hidden="true">05</div>
+        <div class="view-content">
+          <h3 class="view-title">Source provenance</h3>
+          <p class="view-desc">Every data point carries its source identifier and workspace key. You know exactly which service sent which value and when.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY -->
+<section class="surface-bg" aria-labelledby="cred-heading">
+  <div class="container">
+    <div class="section-label">Background</div>
+    <h2 id="cred-heading" class="section-title">Where DataPulse came from</h2>
+
+    <div class="cred-grid">
+      <div class="cred-item">
+        <div class="cred-title">Built as an internal tool first.</div>
+        <p class="cred-desc">DataPulse started as glue code between services that kept duplicating the same metric logic. It became a standalone product when the same pattern appeared in every project.</p>
+      </div>
+      <div class="cred-item">
+        <div class="cred-title">Used daily to track ~40 metrics across ~8 services.</div>
+        <p class="cred-desc">Before open-sourcing, it ran in production across multiple backend services tracking both business and infrastructure metrics. Numbers are approximate but real.</p>
+      </div>
+      <div class="cred-item">
+        <div class="cred-title">Designed to cut 10–15 "can you pull this number" requests per week.</div>
+        <p class="cred-desc">That was the original brief. Engineers shouldn't be interrupt-driven data pipelines for their colleagues.</p>
+      </div>
+    </div>
+
+    <div class="cred-links">
+      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
+         target="_blank" rel="noopener" class="cred-link" aria-label="View repository on GitHub">
+        <span class="cred-link-icon" aria-hidden="true">⌥</span> View repository
+      </a>
+      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page/tree/main/docs/decisions"
+         target="_blank" rel="noopener" class="cred-link" aria-label="View architecture decision records">
+        <span class="cred-link-icon" aria-hidden="true">⌥</span> ADR docs
+      </a>
+      <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page/blob/main/roadmap.md"
+         target="_blank" rel="noopener" class="cred-link" aria-label="View product roadmap">
+        <span class="cred-link-icon" aria-hidden="true">⌥</span> Roadmap
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- PRICING -->
-<section class="surface-bg" id="cene">
-<div class="container">
-<div class="section-label" data-sr="Cene" data-en="Pricing">Cene</div>
-<div class="section-title" data-sr="Transparentne cene. Bez iznenađenja." data-en="Transparent pricing. No surprises.">Transparentne cene. Bez iznenađenja.</div>
-<div class="pricing-grid">
-<div class="price-card">
-<div class="price-tier" data-sr="Besplatno" data-en="Free">Besplatno</div>
-<div class="price-amount">€0<span>/mo</span></div>
-<div class="price-desc" data-sr="Za pojedince i male timove koji tek počinju." data-en="For individuals and small teams just getting started.">Za pojedince i male timove koji tek počinju.</div>
-<ul class="price-features">
-<li><span class="ci">✓</span><span data-sr="1 workspace" data-en="1 workspace">1 workspace</span></li>
-<li><span class="ci">✓</span><span data-sr="5 metrika" data-en="5 metrics">5 metrika</span></li>
-<li><span class="ci">✓</span><span data-sr="7 dana istorije" data-en="7 days history">7 dana istorije</span></li>
-<li><span class="ci">✓</span><span>REST API</span></li>
-<li><span class="xi">✗</span><span style="color:var(--muted)" data-sr="Alarmi" data-en="Alerts">Alarmi</span></li>
-</ul>
-<button class="btn-outline" style="width:100%" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
-</div>
-<div class="price-card featured">
-<div class="price-badge" data-sr="Najpopularnije" data-en="Most popular">Najpopularnije</div>
-<div class="price-tier">Starter</div>
-<div class="price-amount">€49<span>/mo</span></div>
-<div class="price-desc" data-sr="Za rastuće timove kojima treba pouzdanost." data-en="For growing teams that need reliability.">Za rastuće timove kojima treba pouzdanost.</div>
-<ul class="price-features">
-<li><span class="ci">✓</span><span data-sr="3 workspaces" data-en="3 workspaces">3 workspaces</span></li>
-<li><span class="ci">✓</span><span data-sr="50 metrika" data-en="50 metrics">50 metrika</span></li>
-<li><span class="ci">✓</span><span data-sr="90 dana istorije" data-en="90 days history">90 dana istorije</span></li>
-<li><span class="ci">✓</span><span data-sr="Alarmi + webhook" data-en="Alerts + webhook">Alarmi + webhook</span></li>
-<li><span class="ci">✓</span><span data-sr="Email digest" data-en="Email digest">Email digest</span></li>
-</ul>
-<button class="btn" style="width:100%" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
-</div>
-<div class="price-card">
-<div class="price-tier">Growth</div>
-<div class="price-amount">€149<span>/mo</span></div>
-<div class="price-desc" data-sr="Za timove kojima su podaci kritični za odluke." data-en="For teams where data drives every decision.">Za timove kojima su podaci kritični za odluke.</div>
-<ul class="price-features">
-<li><span class="ci">✓</span><span data-sr="Neograničeni workspaces" data-en="Unlimited workspaces">Neograničeni workspaces</span></li>
-<li><span class="ci">✓</span><span data-sr="Neograničene metrike" data-en="Unlimited metrics">Neograničene metrike</span></li>
-<li><span class="ci">✓</span><span data-sr="2 godine istorije" data-en="2 years history">2 godine istorije</span></li>
-<li><span class="ci">✓</span><span data-sr="Slack integracija" data-en="Slack integration">Slack integracija</span></li>
-<li><span class="ci">✓</span><span>DPA &amp; priority support</span></li>
-</ul>
-<button class="btn-outline" style="width:100%" data-sr="Kontaktiraj nas" data-en="Contact us">Kontaktiraj nas</button>
-</div>
-</div>
-</div>
-</section>
+<section id="pricing" aria-labelledby="pricing-heading">
+  <div class="container">
+    <div class="section-label">Pricing</div>
+    <h2 id="pricing-heading" class="section-title">Transparent pricing. No surprises.</h2>
+    <p class="section-sub">All plans include schema enforcement, versioned storage, and the full API.</p>
 
-<!-- TESTIMONIALS -->
-<section>
-<div class="container">
-<div class="section-label" data-sr="Korisnici" data-en="Testimonials">Korisnici</div>
-<div class="section-title" data-sr="Šta kažu timovi koji koriste DataPulse" data-en="What teams using DataPulse say">Šta kažu timovi koji koriste DataPulse</div>
-<div class="test-grid">
-<div class="testimonial"><div class="quote">"</div><p data-sr="Pre DataPulse-a, weekly metrics review je izgledao ovako: 20 minuta debate o tome čiji je broj tačan, 5 minuta odlučivanja. Sada je obrnuto." data-en="Before DataPulse, our weekly metrics review looked like this: 20 minutes debating whose number was correct, 5 minutes deciding. Now it is the other way around.">Pre DataPulse-a, weekly metrics review je izgledao ovako: 20 minuta debate o tome čiji je broj tačan, 5 minuta odlučivanja. Sada je obrnuto.</p><div class="t-author"><div class="avatar">M</div><div><div class="t-name">Marko Novak</div><div class="t-role">Co-founder, Flowbit (Ljubljana)</div></div></div></div>
-<div class="testimonial"><div class="quote">"</div><p data-sr="Imamo 4 izvora podataka i 2 developera. DataPulse je jedino rešenje koje smo integrišali za jedan dan i odmah videli vrednost." data-en="We have 4 data sources and 2 developers. DataPulse is the only solution we integrated in one day and immediately saw value.">Imamo 4 izvora podataka i 2 developera. DataPulse je jedino rešenje koje smo integrišali za jedan dan i odmah videli vrednost.</p><div class="t-author"><div class="avatar">A</div><div><div class="t-name">Ana Kovač</div><div class="t-role">Head of Product, Receevi (Zagreb)</div></div></div></div>
-<div class="testimonial"><div class="quote">"</div><p data-sr="Naš board traži iste metrike svaki kvartal. Ranije sam trošio dan na pripremu. Sada im šaljem link na DataPulse dashboard." data-en="Our board asks for the same metrics every quarter. I used to spend a day preparing. Now I send them a link to the DataPulse dashboard.">Naš board traži iste metrike svaki kvartal. Ranije sam trošio dan na pripremu. Sada im šaljem link na DataPulse dashboard.</p><div class="t-author"><div class="avatar">T</div><div><div class="t-name">Tomáš Blaha</div><div class="t-role">CEO, Stacknote (Prague)</div></div></div></div>
-</div>
-</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Free</div>
+        <div class="price-amount">€0<span>/mo</span></div>
+        <div class="price-desc">1 workspace, 5 metrics, 7-day history. Enough to validate the integration.</div>
+        <ul class="price-features">
+          <li><span class="ci" aria-label="included">✓</span><span>1 workspace</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>5 metrics</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>7 days history</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>REST API + workspace-scoped keys</span></li>
+          <li><span class="xi" aria-label="not included">✗</span><span class="muted-text">Threshold alerts</span></li>
+        </ul>
+        <a href="#signup" class="btn-outline btn-full">Start free</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-badge">Most used</div>
+        <div class="price-tier">Starter</div>
+        <div class="price-amount">€49<span>/mo</span></div>
+        <div class="price-desc">3 workspaces, 50 metrics, 90-day history. For teams with real production traffic.</div>
+        <ul class="price-features">
+          <li><span class="ci" aria-label="included">✓</span><span>3 workspaces</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>50 metrics</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>90 days history</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>Threshold alerts + webhook</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>Email digest</span></li>
+        </ul>
+        <a href="#signup" class="btn btn-full">Start free</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier">Growth</div>
+        <div class="price-amount">€149<span>/mo</span></div>
+        <div class="price-desc">Unlimited workspaces and metrics, 2-year history. Slack integration, DPA, priority support.</div>
+        <ul class="price-features">
+          <li><span class="ci" aria-label="included">✓</span><span>Unlimited workspaces</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>Unlimited metrics</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>2 years history</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>Slack integration</span></li>
+          <li><span class="ci" aria-label="included">✓</span><span>DPA + priority support</span></li>
+        </ul>
+        <a href="mailto:hello@datapulse.io" class="btn-outline btn-full">Contact us</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- FAQ -->
-<section class="surface-bg" id="faq">
-<div class="container">
-<div class="section-label">FAQ</div>
-<div class="section-title" data-sr="Česta pitanja" data-en="Frequently asked questions">Česta pitanja</div>
-<div class="faq-list">
-<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Da li mi treba data warehouse?" data-en="Do I need a data warehouse?">Da li mi treba data warehouse?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Ne. DataPulse prima metrike direktno via API bez data warehouse-a. Dizajniran za kompanije u ranoj fazi." data-en="No. DataPulse accepts metrics directly via API without a data warehouse. Designed for early-stage companies.">Ne. DataPulse prima metrike direktno via API bez data warehouse-a. Dizajniran za kompanije u ranoj fazi.</div></div>
-<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Koliko traje integracija?" data-en="How long does integration take?">Koliko traje integracija?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Manje od 5 minuta za prvu metriku. Jedan POST request, jedan API ključ, jedan endpoint." data-en="Under 5 minutes for your first metric. One POST request, one API key, one endpoint.">Manje od 5 minuta za prvu metriku. Jedan POST request, jedan API ključ, jedan endpoint.</div></div>
-<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Gde se čuvaju moji podaci?" data-en="Where is my data stored?">Gde se čuvaju moji podaci?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Isključivo na EU serverima. GDPR compliant by design. DPA dostupan za sve plaćene planove." data-en="Exclusively on EU servers. GDPR compliant by design. DPA available for all paid plans.">Isključivo na EU serverima. GDPR compliant by design. DPA dostupan za sve plaćene planove.</div></div>
-<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Mogu li bez tehničkog znanja?" data-en="Can I use it without technical knowledge?">Mogu li bez tehničkog znanja?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Dashboard i alarmi su dizajnirani za PM-ove i foundere. Integracija zahteva jednog developera, jednom." data-en="Dashboard and alerts are designed for PMs and founders. Integration requires one developer, once.">Dashboard i alarmi su dizajnirani za PM-ove i foundere. Integracija zahteva jednog developera, jednom.</div></div>
-<div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span data-sr="Šta ako prekoračim limit plana?" data-en="What if I exceed my plan limits?">Šta ako prekoračim limit plana?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-sr="Nećemo blokirati podatke. Dobićeš notifikaciju i 14 dana da upgradeš. Bez automatskog naplaćivanja." data-en="We will not block your data. You receive a notification and 14 days to upgrade. No automatic charges.">Nećemo blokirati podatke. Dobićeš notifikaciju i 14 dana da upgradeš. Bez automatskog naplaćivanja.</div></div>
-</div>
-</div>
+<section class="surface-bg" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 id="faq-heading" class="section-title">Frequently asked questions</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-1">
+          <span>Do I need a data warehouse?</span>
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq-a-1" hidden>No. DataPulse receives metrics via POST — it does not connect to your database or warehouse. There is nothing to provision on your data infrastructure side.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-2">
+          <span>How long does integration take?</span>
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq-a-2" hidden>Under 5 minutes for the first metric. One POST request, one API key, one endpoint. The key is workspace-scoped, so you can rotate it without touching other services.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-3">
+          <span>What happens when a metric's definition changes?</span>
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq-a-3" hidden>You update the schema and DataPulse increments the version (v1 → v2). Historical data under v1 is preserved and queryable. The two versions do not collide. You can deprecate v1 on a schedule.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-4">
+          <span>Where is data stored?</span>
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq-a-4" hidden>EU servers only. GDPR-compliant by design. A Data Processing Agreement is available for all paid plans. No data is processed outside the EU.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-5">
+          <span>What if I exceed my plan's metric limit?</span>
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq-a-5" hidden>Data is never dropped. You receive a notification and 14 days to upgrade. No automatic charges, no silent data loss.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-a-6">
+          <span>Can I run it locally?</span>
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq-a-6" hidden>Yes. Clone the repository and follow the README. The local stack runs without external dependencies. Useful for development and for understanding the ingestion pipeline before committing to the hosted version.</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CTA -->
-<div class="container cta-wrap">
-<div class="cta-banner">
-<h2 data-sr="Spreman da imaš jedan izvor istine?" data-en="Ready to have one source of truth?">Spreman da imaš jedan izvor istine?</h2>
-<p data-sr="Poveži prvu metriku za manje od 5 minuta. Besplatno, bez kreditne kartice." data-en="Connect your first metric in under 5 minutes. Free, no credit card required.">Poveži prvu metriku za manje od 5 minuta. Besplatno, bez kreditne kartice.</p>
-<button class="btn-white" onclick="focusEmail()" data-sr="Počni besplatno" data-en="Start for free">Počni besplatno</button>
-</div>
-</div>
+<!-- CTA / SIGNUP -->
+<section class="cta-section" id="signup" aria-labelledby="cta-heading">
+  <div class="container">
+    <div class="cta-banner">
+      <div class="cta-text">
+        <h2 id="cta-heading">One endpoint. All your metrics.</h2>
+        <p>Start with the free plan. No credit card. Local first-run in minutes.</p>
+        <form id="signup-form" onsubmit="handleSignup(event)" novalidate>
+          <div class="cta-form">
+            <label for="cta-email" class="sr-only">Your email address</label>
+            <input type="email" id="cta-email" name="email"
+                   placeholder="you@company.com"
+                   autocomplete="email"
+                   required aria-required="true"
+                   aria-describedby="cta-form-status" />
+            <button type="submit" class="btn" aria-label="Start free with DataPulse">Start free</button>
+          </div>
+          <div class="form-status" id="cta-form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+      <div class="cta-links">
+        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
+           target="_blank" rel="noopener" class="btn-outline"
+           aria-label="Clone and run DataPulse locally from GitHub">
+          Clone &amp; run locally
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
-<footer>
-<div class="container">
-<div class="footer-inner">
-<div class="footer-logo">DataPulse</div>
-<div class="footer-links">
-<a href="#kako-radi" data-sr="Kako radi" data-en="How it works">Kako radi</a>
-<a href="#cene" data-sr="Cene" data-en="Pricing">Cene</a>
-<a href="#faq">FAQ</a>
-<a href="mailto:hello@datapulse.rs">hello@datapulse.rs</a>
-</div>
-<div class="footer-copy">© 2026 DataPulse · <span data-sr="Svi podaci na EU serverima" data-en="All data on EU servers">Svi podaci na EU serverima</span></div>
-</div>
-</div>
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">DataPulse</div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#why-not-bi">Philosophy</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/StrahinjaVasiljevic/DataPulse-Landing-Page"
+           target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:hello@datapulse.io">hello@datapulse.io</a>
+      </nav>
+      <div class="footer-copy">
+        <span>© 2026 DataPulse</span>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <span>EU servers</span>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <span>GDPR compliant</span>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<script>
-// THEME
-let theme = 'dark';
-function toggleTheme() {
-  theme = theme === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
-  document.getElementById('theme-btn').textContent = theme === 'dark' ? '🌙' : '☀️';
-}
-
-// LANGUAGE
-let lang = 'sr';
-function toggleLang() {
-  lang = lang === 'sr' ? 'en' : 'sr';
-  document.getElementById('lang-btn').textContent = lang === 'sr' ? 'EN' : 'SR';
-  document.querySelectorAll('[data-sr]').forEach(el => {
-    const val = el.getAttribute('data-' + lang);
-    if (!val) return;
-    if (el.tagName === 'INPUT') { el.placeholder = val; return; }
-    if (val.includes('<')) { el.innerHTML = val; } else { el.textContent = val; }
-  });
-}
-
-// FAQ
-function toggleFaq(el) { el.classList.toggle('open'); }
-
-// SCROLL
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) t.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-// FOCUS EMAIL
-function focusEmail() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  setTimeout(() => document.getElementById('hero-email').focus(), 500);
-}
-
-// FORMSPREE EMAIL SIGNUP
-async function handleSignup(e) {
-  e.preventDefault();
-  const email = document.getElementById('hero-email').value;
-  const status = document.getElementById('form-status');
-  const btn = e.submitter;
-
-  if (!email || !email.includes('@')) {
-    status.textContent = lang === 'sr' ? 'Unesi ispravan email.' : 'Please enter a valid email.';
-    status.className = 'form-status error';
-    return;
-  }
-
-  btn.textContent = lang === 'sr' ? 'Šaljem...' : 'Sending...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ email })
-    });
-
-    if (res.ok) {
-      status.textContent = lang === 'sr'
-        ? '✓ Prijava uspešna! Javićemo ti se uskoro.'
-        : '✓ Success! We will reach out soon.';
-      status.className = 'form-status success';
-      document.getElementById('hero-email').value = '';
-    } else {
-      throw new Error('Server error');
-    }
-  } catch {
-    status.textContent = lang === 'sr'
-      ? 'Greška. Pokušaj ponovo ili nas kontaktiraj na hello@datapulse.rs'
-      : 'Error. Please try again or contact hello@datapulse.rs';
-    status.className = 'form-status error';
-  }
-
-  btn.textContent = lang === 'sr' ? 'Počni besplatno' : 'Start for free';
-  btn.disabled = false;
-}
-</script>
+<script src="app.js"></script>
 </body>
 </html>
