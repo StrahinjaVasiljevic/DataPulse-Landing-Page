@@ -169,7 +169,7 @@ async function handleSignup(e) {
 
   try {
     // Replace YOUR_FORM_ID with your Formspree form ID
-    var res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+    var res = await fetch('https://formspree.io/f/xykoenzg', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body:    JSON.stringify({ email: email })
